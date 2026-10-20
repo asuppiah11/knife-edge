@@ -1,0 +1,300 @@
+{
+  "match_id": "KE-000042",
+  "seed": 42,
+  "competition": "Knife-Edge Synthetic League",
+  "matchday": 1,
+  "kickoff_iso": "2026-01-01T15:00:00Z",
+  "home": {
+    "team_id": "T16",
+    "name": "Saltmarsh",
+    "short": "SAL",
+    "colour": "#20b2aa",
+    "formation": "4-3-3"
+  },
+  "away": {
+    "team_id": "T11",
+    "name": "Mossridge",
+    "short": "MOS",
+    "colour": "#556b2f",
+    "formation": "4-3-3"
+  },
+  "lineups": {
+    "T16": [
+      {
+        "player_id": "T16P01",
+        "name": "Arjun Mendes",
+        "position": "GK",
+        "shirt": 1,
+        "starter": true
+      },
+      {
+        "player_id": "T16P02",
+        "name": "Gideon Oyelaran",
+        "position": "RB",
+        "shirt": 2,
+        "starter": true
+      },
+      {
+        "player_id": "T16P03",
+        "name": "Emeka Castellano",
+        "position": "CB",
+        "shirt": 3,
+        "starter": true
+      },
+      {
+        "player_id": "T16P04",
+        "name": "Milo Hartwell",
+        "position": "CB",
+        "shirt": 4,
+        "starter": true
+      },
+      {
+        "player_id": "T16P05",
+        "name": "Pedro Moreau",
+        "position": "LB",
+        "shirt": 5,
+        "starter": true
+      },
+      {
+        "player_id": "T16P06",
+        "name": "Viggo Brandt",
+        "position": "CM",
+        "shirt": 6,
+        "starter": true
+      },
+      {
+        "player_id": "T16P07",
+        "name": "Aarav Quarrie",
+        "position": "CM",
+        "shirt": 7,
+        "starter": true
+      },
+      {
+        "player_id": "T16P08",
+        "name": "Milo Thorne",
+        "position": "CM",
+        "shirt": 8,
+        "starter": true
+      },
+      {
+        "player_id": "T16P09",
+        "name": "Oisin Rajan",
+        "position": "RW",
+        "shirt": 9,
+        "starter": true
+      },
+      {
+        "player_id": "T16P10",
+        "name": "Benedek Castellano",
+        "position": "ST",
+        "shirt": 10,
+        "starter": true
+      },
+      {
+        "player_id": "T16P11",
+        "name": "Teodor Ahmed",
+        "position": "LW",
+        "shirt": 11,
+        "starter": true
+      },
+      {
+        "player_id": "T16P12",
+        "name": "Hugo Ribeiro",
+        "position": "GK",
+        "shirt": 12,
+        "starter": false
+      },
+      {
+        "player_id": "T16P13",
+        "name": "Vikram Quarrie",
+        "position": "CB",
+        "shirt": 13,
+        "starter": false
+      },
+      {
+        "player_id": "T16P14",
+        "name": "Nikolai Esterhuizen",
+        "position": "FB",
+        "shirt": 14,
+        "starter": false
+      },
+      {
+        "player_id": "T16P15",
+        "name": "Quinlan Nakamura",
+        "position": "CM",
+        "shirt": 15,
+        "starter": false
+      },
+      {
+        "player_id": "T16P16",
+        "name": "Felix Nakamura",
+        "position": "CM",
+        "shirt": 16,
+        "starter": false
+      },
+      {
+        "player_id": "T16P17",
+        "name": "Kian Moreau",
+        "position": "W",
+        "shirt": 17,
+        "starter": false
+      },
+      {
+        "player_id": "T16P18",
+        "name": "Hamza Rasmussen",
+        "position": "ST",
+        "shirt": 18,
+        "starter": false
+      }
+    ],
+    "T11": [
+      {
+        "player_id": "T11P01",
+        "name": "Zoran Pellegrino",
+        "position": "GK",
+        "shirt": 1,
+        "starter": true
+      },
+      {
+        "player_id": "T11P02",
+        "name": "Aarav Walsh",
+        "position": "RB",
+        "shirt": 2,
+        "starter": true
+      },
+      {
+        "player_id": "T11P03",
+        "name": "Xavi Menon",
+        "position": "CB",
+        "shirt": 3,
+        "starter": true
+      },
+      {
+        "player_id": "T11P04",
+        "name": "Arjun Sandoval",
+        "position": "CB",
+        "shirt": 4,
+        "starter": true
+      },
+      {
+        "player_id": "T11P05",
+        "name": "Gavriel Brandt",
+        "position": "LB",
+        "shirt": 5,
+        "starter": true
+      },
+      {
+        "player_id": "T11P06",
+        "name": "Soren Calloway",
+        "position": "CM",
+        "shirt": 6,
+        "starter": true
+      },
+      {
+        "player_id": "T11P07",
+        "name": "Aarav Larsson",
+        "position": "CM",
+        "shirt": 7,
+        "starter": true
+      },
+      {
+        "player_id": "T11P08",
+        "name": "Amadou Ashcombe",
+        "position": "CM",
+        "shirt": 8,
+        "starter": true
+      },
+      {
+        "player_id": "T11P09",
+        "name": "Teodor Oyelaran",
+        "position": "RW",
+        "shirt": 9,
+        "starter": true
+      },
+      {
+        "player_id": "T11P10",
+        "name": "Joaquin Esterhuizen",
+        "position": "ST",
+        "shirt": 10,
+        "starter": true
+      },
+      {
+        "player_id": "T11P11",
+        "name": "Ulrik Fontaine",
+        "position": "LW",
+        "shirt": 11,
+        "starter": true
+      },
+      {
+        "player_id": "T11P12",
+        "name": "Jaden Dalgety",
+        "position": "GK",
+        "shirt": 12,
+        "starter": false
+      },
+      {
+        "player_id": "T11P13",
+        "name": "Vasco Farrant",
+        "position": "CB",
+        "shirt": 13,
+        "starter": false
+      },
+      {
+        "player_id": "T11P14",
+        "name": "Bastian Dalgety",
+        "position": "FB",
+        "shirt": 14,
+        "starter": false
+      },
+      {
+        "player_id": "T11P15",
+        "name": "Nestor Kovac",
+        "position": "CM",
+        "shirt": 15,
+        "starter": false
+      },
+      {
+        "player_id": "T11P16",
+        "name": "Amadou Varga",
+        "position": "CM",
+        "shirt": 16,
+        "starter": false
+      },
+      {
+        "player_id": "T11P17",
+        "name": "Dario Oyelaran",
+        "position": "W",
+        "shirt": 17,
+        "starter": false
+      },
+      {
+        "player_id": "T11P18",
+        "name": "Zoran Kovac",
+        "position": "ST",
+        "shirt": 18,
+        "starter": false
+      }
+    ]
+  },
+  "score": {
+    "home": 1,
+    "away": 1
+  },
+  "periods": [
+    {
+      "period": 1,
+      "regulation_s": 2700,
+      "stoppage_s": 166
+    },
+    {
+      "period": 2,
+      "regulation_s": 2700,
+      "stoppage_s": 224
+    }
+  ],
+  "provenance": {
+    "generator": "knifeedge.sim.match.MatchSimulator",
+    "version": "0.1.0",
+    "statement": "All events in this file were generated by knifeedge.sim (seed recorded in match.json). No real competition, club, player, match or broadcast data was used or represented."
+  }
+}

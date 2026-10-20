@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knife-edge.dev/schemas/event.schema.json",
+  "title": "Knife-Edge synthetic match event",
+  "description": "One row of events.jsonl. Coordinates are in the ACTING team's attacking frame: x runs 0..105 metres towards the opponent's goal (goal centre at x=105, y=34), y runs 0..68 metres. All data is synthetic; no real competition, club, player or match is represented.",
+  "type": "object",
+  "required": ["event_id", "match_id", "period", "minute", "second", "clock_s", "team_id", "type"],
+  "additionalProperties": true,
+  "properties": {
+    "event_id": { "type": "integer", "minimum": 1 },
+    "match_id": { "type": "string" },
+    "period": { "type": "integer", "enum": [1, 2] },
+    "minute": { "type": "integer", "minimum": 0, "maximum": 130 },
+    "second": { "type": "integer", "minimum": 0, "maximum": 59 },
+    "clock_s": { "type": "number", "minimum": 0, "description": "Seconds since kick-off of period 1, continuous across halves (half-time break excluded)." },
+    "team_id": { "type": "string" },
+    "player_id": { "type": ["string", "null"] },
+    "type": {
+      "type": "string",
+      "enum": ["kick_off", "pass", "carry", "shot", "pressure", "tackle", "interception", "clearance", "foul", "card", "substitution", "goal_kick", "throw_in", "corner", "half_end", "period_start"]
+    },
+    "x": { "type": ["number", "null"], "minimum": 0, "maximum": 105 },
+    "y": { "type": ["number", "null"], "minimum": 0, "maximum": 68 },
+    "end_x": { "type": ["number", "null"], "minimum": 0, "maximum": 105 },
+    "end_y": { "type": ["number", "null"], "minimum": 0, "maximum": 68 },
+    "outcome": { "type": ["string", "null"], "enum": ["success", "fail", "goal", "saved", "off_target", "blocked", "post", "won", "lost", null] },
+    "possession_id": { "type": ["integer", "null"] },
+    "under_pressure": { "type": ["boolean", "null"] },
+    "pass": {
+      "type": "object",
+      "properties": {
+        "distance_m": { "type": "number", "minimum": 0 },
+        "forward_m": { "type": "number" },
+        "difficulty": { "type": "number", "minimum": 0, "maximum": 1, "description": "Model-estimated probability of failure before the pass was played." },
+        "progressive": { "type": "boolean" },
+        "into_final_third": { "type": "boolean" },
+        "recipient_id": { "type": ["string", "null"] }
+      }
+    },
+    "carry": {
+      "type": "object",
+      "properties": {
+        "distance_m": { "type": "number", "minimum": 0 },
+        "duration_s": { "type": "number", "minimum": 0 },
+        "speed_ms": { "type": "number", "minimum": 0 },
+        "sprint": { "type": "boolean", "description": "True when speed_ms >= 7.0 (25.2 km/h)." }
+      }
+    },
+    "shot": {
+      "type": "object",
+      "required": ["xg", "distance_m", "angle_rad", "body_part"],
+      "properties": {
+        "xg": { "type": "number", "minimum": 0, "maximum": 1, "description": "Observable xG from the public formula (engine/features.py). The hidden generating probability lives in truth.json." },
+        "distance_m": { "type": "number" },
+        "angle_rad": { "type": "number" },
+        "body_part": { "type": "string", "enum": ["right_foot", "left_foot", "head", "other"] },
+        "speed_kmh": { "type": "number" },
+        "situation": { "type": "string", "enum": ["open_play", "counter", "set_piece", "penalty"] },
+        "assist_event_id": { "type": ["integer", "null"] }
+      }
+    },
+    "pressure": { "type": "object", "properties": { "duration_s": { "type": "number", "minimum": 0 } } },
+    "card": { "type": "object", "properties": { "colour": { "type": "string", "enum": ["yellow", "red", "second_yellow"] } } },
+    "substitution": { "type": "object", "properties": { "player_in": { "type": "string" }, "player_out": { "type": "string" } } }
+  }
+}

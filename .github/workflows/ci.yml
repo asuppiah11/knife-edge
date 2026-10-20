@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev,mcp]"
+      - run: pytest -q
+      - name: Generate a match and run the template cue pipeline (eval gate, offline)
+        run: |
+          knife-edge season --out data/ratings.json
+          knife-edge generate --seed 42 --out data/matches/KE-000042
+          knife-edge cues data/matches/KE-000042 --ratings data/ratings.json --audience analyst --lang ta --out /tmp/cues.json
+          python - <<'EOF'
+          import json
+          cues = json.load(open("/tmp/cues.json"))
+          failed = [c for c in cues if not c["verifier"]["passed"]]
+          print(f"{len(cues)} cues, {len(failed)} failed verification")
+          raise SystemExit(1 if failed or not cues else 0)
+          EOF
+      - name: Quick calibration smoke (40 matches, no plot)
+        run: knife-edge calibrate --matches 40 --out /tmp/cal --no-plot

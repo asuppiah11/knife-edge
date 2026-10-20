@@ -1,0 +1,22 @@
+{
+  "servers": {
+    "knife-edge-greeks": {
+      "type": "http",
+      "url": "http://localhost:8000/mcp/"
+    },
+    "knife-edge-greeks-stdio": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "knifeedge.api.mcp_server"],
+      "env": {
+        "KNIFE_EDGE_MATCHES": "${workspaceFolder}/data/matches",
+        "KNIFE_EDGE_RATINGS": "${workspaceFolder}/data/ratings.json"
+      }
+    },
+    "azure": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@azure/mcp@latest", "server", "start"]
+    }
+  }
+}

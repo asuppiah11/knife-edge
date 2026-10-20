@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knife-Edge studio</title>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+<style>
+  @font-face { font-family: "Big Shoulders Display"; font-weight: 700; font-display: swap; src: url("fonts/big-shoulders-display-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Big Shoulders Display"; font-weight: 800; font-display: swap; src: url("fonts/big-shoulders-display-latin-800-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 400; font-display: swap; src: url("fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 500; font-display: swap; src: url("fonts/instrument-sans-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 600; font-display: swap; src: url("fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); }
+
+  :root {
+    --wall: #f1f2ee; --wall-2: #e6e8e2; --panel: #ffffff; --rule: #dadcd5; --rule-2: #c9ccc3;
+    --ink: #10192b; --ink-2: #4f5867; --ink-3: #8a919c;
+    --grass: #3b9c5c; --goal: #f0b400; --goal-ink: #7a5a00; --edge: #e2452c; --draw: #a3aab3;
+    --home: #1f6feb; --away: #e8743b; --home-t: #1f6feb1f; --away-t: #e8743b1f; --ok: #1f8a4c;
+    --display: "Big Shoulders Display", "Barlow Condensed", "Arial Narrow", sans-serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --r: 6px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--wall) radial-gradient(1400px 520px at 50% -120px, #ffffff 0%, rgba(255,255,255,0) 70%) no-repeat; color: var(--ink); font-family: var(--body); font-size: 14.5px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+  button, select, input { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; padding: 0; }
+  :is(button, select, input, [tabindex]):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* top bar */
+  .bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 24px; border-bottom: 1px solid var(--rule); background: rgba(255,255,255,.55); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 20; }
+  .brand { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1; letter-spacing: .01em; }
+  .brand i { display: inline-block; width: 9px; height: 22px; background: var(--edge); transform: skewX(-18deg); margin: 0 7px 0 2px; vertical-align: -3px; }
+  .bar .hint { color: var(--ink-2); font-size: 13px; }
+  .bar .spacer { flex: 1; }
+  .sel { appearance: none; -webkit-appearance: none; background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2310192b' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center; border: 1px solid var(--rule-2); border-radius: 999px; padding: 7px 30px 7px 14px; font-weight: 500; }
+  .btn { background: var(--panel); border: 1px solid var(--rule-2); border-radius: 999px; padding: 7px 14px; font-weight: 500; transition: background .15s, border-color .15s; }
+  .btn:hover { border-color: var(--ink-3); }
+  .btn.on { background: var(--edge); border-color: var(--edge); color: #fff; }
+
+  /* scorebug */
+  .scorebug { max-width: 1520px; margin: 0 auto; padding: 22px 24px 0; }
+  .teams { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 22px; }
+  .team { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .team > div { min-width: 0; }
+  .team.away { flex-direction: row-reverse; text-align: right; }
+  .team .nm { font-family: var(--display); font-weight: 800; font-size: 38px; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .team .fm { color: var(--ink-2); font-size: 13px; margin-top: 4px; }
+  .crest { width: 54px; height: 60px; flex: none; filter: drop-shadow(0 2px 2px rgba(16,25,43,.18)); }
+  .centre { text-align: center; }
+  .score { font-family: var(--display); font-weight: 800; font-size: 72px; line-height: .9; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+  .clockrow { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+  .clock { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1; font-variant-numeric: tabular-nums; min-width: 44px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600; background: var(--wall-2); color: var(--ink-2); }
+  .chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .7; }
+  .chip.hot { background: var(--edge); color: #fff; }
+  .chip.warm { background: var(--goal); color: #3d2d00; }
+  .chip.red { background: var(--ink); color: #fff; }
+  .prob { margin-top: 18px; }
+  .prob .labels { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: baseline; margin-bottom: 6px; }
+  .prob .labels > div:last-child { text-align: right; }
+  .prob .labels > div:nth-child(2) { text-align: center; color: var(--ink-2); }
+  .prob .labels b { font-family: var(--display); font-weight: 800; font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums; margin-right: 6px; }
+  .prob .labels > div:last-child b { margin: 0 0 0 6px; }
+  .prob .labels .w { color: var(--ink-2); font-size: 13px; }
+  .prob .track { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--wall-2); }
+  .prob .track div { transition: width .5s cubic-bezier(.2,.7,.2,1); }
+  .prob .track .d { background: repeating-linear-gradient(135deg, #b9bfc7 0 4px, #cfd4da 4px 8px); }
+
+  /* the Greeks band */
+  .band { margin-top: 20px; background: var(--panel); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+  .cells { display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr; }
+  .cell { position: relative; padding: 16px 18px 14px; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .cell:first-child { border-left: 0; }
+  .cell.gamma { background: #fff8e8; }
+  .cell .glyph { position: absolute; right: 14px; top: 12px; width: 66px; height: 66px; fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; opacity: .13; pointer-events: none; }
+  .cell.gamma .glyph { stroke: var(--edge); opacity: .32; }
+  .cell .k { font-weight: 600; font-size: 14px; padding-right: 70px; }
+  .cell .k span { color: var(--ink-2); font-weight: 400; margin-left: 6px; }
+  .cell .v { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; margin-top: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cell .s { color: var(--ink-2); font-size: 13px; min-height: 2.7em; }
+  .cell .spark { width: 100%; height: 46px; display: block; margin-top: 8px; }
+  .gw { display: flex; align-items: center; gap: 14px; margin-top: 2px; }
+  .gw svg { width: 118px; flex: none; display: block; }
+  .gw .v { margin-top: 0; }
+  .gw .gl { font-size: 12px; color: var(--ink-2); display: flex; justify-content: space-between; width: 118px; margin-top: -4px; }
+  .whatif { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 12px 18px; border-top: 1px solid var(--rule); }
+  .whatif .lab { color: var(--ink-2); font-size: 13px; margin-right: 2px; }
+  .whatif .btn { padding: 5px 12px; font-size: 13px; }
+  .whatif .btn.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .wres { margin: 0 18px 14px; background: #f6f7f3; border-radius: var(--r); padding: 12px 14px; display: none; }
+  .wres .big { font-family: var(--display); font-weight: 800; font-size: 22px; line-height: 1.05; }
+  .wres .cmp { display: grid; grid-template-columns: 60px 1fr 96px; gap: 8px 10px; align-items: center; margin-top: 10px; font-size: 13px; font-variant-numeric: tabular-nums; max-width: 640px; }
+  .wres .cmp .b { position: relative; height: 10px; background: var(--wall-2); border-radius: 5px; overflow: hidden; }
+  .wres .cmp .b i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 5px; }
+  .wres .cmp .b i.ghost { opacity: .3; }
+  .wres .cmp .b i.after { transition: width .5s cubic-bezier(.2,.7,.2,1); }
+  .wres .cmp .r { text-align: right; }
+  .wres .cmp .r b { font-weight: 600; }
+  .wres .fine { margin-top: 8px; font-size: 12.5px; color: var(--ink-2); }
+
+  /* main layout */
+  main { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(340px, 1fr); gap: 28px; max-width: 1520px; margin: 0 auto; padding: 22px 24px 36px; align-items: start; }
+  .panel { background: var(--panel); border: 1px solid var(--rule); border-radius: var(--r); }
+  h2 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; margin: 0; letter-spacing: .01em; }
+  h2 small { font-family: var(--body); font-weight: 400; font-size: 13px; color: var(--ink-2); margin-left: 10px; letter-spacing: 0; }
+  .ph { display: flex; align-items: baseline; justify-content: space-between; gap: 10px 12px; flex-wrap: wrap; padding: 14px 16px 10px; }
+  .pb { padding: 0 16px 14px; }
+
+  /* stage (3D pitch) */
+  .stage { position: relative; aspect-ratio: 16 / 9.6; border-radius: var(--r); overflow: hidden; background: linear-gradient(180deg, #eef0ea, #e3e6df); border: 1px solid var(--rule); }
+  .stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  .stage .fallback { position: absolute; inset: 0; display: none; }
+  .stage .fallback svg { width: 100%; height: 100%; display: block; }
+  .stage.is2d .fallback { display: block; }
+  .stage.is2d canvas, .stage.is2d [data-layer=heat] { display: none; }
+  .stage.is2d { aspect-ratio: 111 / 74; }
+  .stage .loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ink-2); font-size: 14px; pointer-events: none; }
+  .stage .loading.hide { display: none; }
+  .hud { position: absolute; left: 12px; top: 12px; display: flex; align-items: baseline; gap: 8px; background: rgba(255,255,255,.9); backdrop-filter: blur(6px); border: 1px solid var(--rule-2); border-radius: 999px; padding: 5px 14px 5px 12px; pointer-events: none; }
+  .hud::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--edge); align-self: center; }
+  .hud span { font-size: 12.5px; color: var(--ink-2); }
+  .hud b { font-family: var(--display); font-weight: 800; font-size: 22px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .overlay { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; pointer-events: none; }
+  .overlay > * { pointer-events: auto; }
+  .seg { display: inline-flex; background: rgba(255,255,255,.88); backdrop-filter: blur(6px); border: 1px solid var(--rule-2); border-radius: 999px; padding: 3px; gap: 2px; }
+  .seg button { padding: 5px 11px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+  .seg button:hover { color: var(--ink); }
+  .seg button.on { background: var(--ink); color: #fff; }
+  .seg button.sw.on { background: var(--grass); }
+  .stage .nudge { position: absolute; top: 12px; right: 12px; font-size: 12px; color: var(--ink-2); background: rgba(255,255,255,.8); padding: 4px 10px; border-radius: 999px; pointer-events: none; transition: opacity .4s; }
+  .stage .nudge.gone { opacity: 0; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; color: var(--ink-2); font-size: 12.5px; margin-top: 10px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: var(--shape, 50%); margin-right: 6px; vertical-align: -1px; background: var(--dot); border: 1.5px solid var(--ring, var(--dot)); }
+
+  /* transport + river */
+  .transport { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .play { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; border-radius: 999px; padding: 8px 16px 8px 12px; font-weight: 600; }
+  .play svg { width: 12px; height: 12px; fill: currentColor; }
+  .transport input[type=range] { flex: 1; min-width: 160px; accent-color: var(--ink); height: 22px; }
+  .transport .t { font-family: var(--display); font-weight: 700; font-size: 22px; min-width: 56px; text-align: right; font-variant-numeric: tabular-nums; }
+  .riverwrap { position: relative; margin-top: 12px; }
+  svg.river { width: 100%; height: 190px; display: block; cursor: crosshair; border-radius: var(--r); background: var(--panel); border: 1px solid var(--rule); }
+  .river-legend { display: flex; gap: 16px; font-size: 12.5px; color: var(--ink-2); margin-top: 8px; flex-wrap: wrap; }
+  .river-legend i { display: inline-block; width: 12px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+  .moments { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+  .moments .lab { color: var(--ink-2); font-size: 13px; margin-right: 2px; }
+  .mo { display: inline-flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--rule-2); border-radius: 999px; padding: 5px 12px 5px 8px; font-size: 13px; transition: opacity .3s, border-color .15s; }
+  .mo:hover { border-color: var(--ink-3); }
+  .mo.future { opacity: .45; }
+  .mo .m { font-family: var(--display); font-weight: 700; font-size: 15px; }
+  .mo .sw { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* tooltip */
+  .tip { position: fixed; z-index: 50; pointer-events: none; background: var(--ink); color: #fff; border-radius: 6px; padding: 8px 11px; font-size: 12.5px; line-height: 1.4; max-width: 280px; display: none; box-shadow: 0 8px 24px rgba(16,25,43,.25); }
+  .tip b { font-family: var(--display); font-weight: 700; font-size: 16px; display: block; margin-bottom: 2px; }
+  .tip .row2 { display: flex; gap: 10px; margin-top: 4px; }
+  .tip .row2 span { font-variant-numeric: tabular-nums; }
+
+  /* feed */
+  .filters { display: inline-flex; gap: 4px; }
+  .filters button { padding: 4px 10px; border-radius: 999px; font-size: 12.5px; color: var(--ink-2); border: 1px solid transparent; }
+  .filters button.on { background: var(--wall-2); color: var(--ink); font-weight: 600; }
+  .feed { max-height: 420px; overflow: auto; }
+  .row { display: grid; grid-template-columns: 48px 1fr 74px; gap: 10px; align-items: center; padding: 7px 6px; border-top: 1px solid var(--rule); font-size: 14px; cursor: pointer; }
+  .row:first-child { border-top: 0; }
+  .row:hover, .row.sel { background: #f6f7f3; }
+  .row .m { font-family: var(--display); font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; }
+  .row .what { font-weight: 500; }
+  .row.goal .what, .row.goal .m { color: var(--goal-ink); }
+  .row .who { color: var(--ink-2); }
+  .row .who a { color: var(--ink); text-decoration: underline dotted; text-underline-offset: 2px; cursor: pointer; }
+  .row .sw { justify-self: end; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 13px; padding: 2px 8px; border-radius: 999px; background: var(--wall-2); color: var(--ink-2); }
+  .row .sw.up { background: var(--home-t); color: var(--home); }
+  .row .sw.dn { background: var(--away-t); color: var(--away); }
+  .feed.f-goal .row:not(.goal), .feed.f-shot .row:not(.shot), .feed.f-card .row:not(.card), .feed.f-sub .row:not(.sub) { display: none; }
+  .why, .player { margin-top: 12px; background: #f6f7f3; border-radius: var(--r); padding: 12px 14px; display: none; }
+  .why .head { font-weight: 600; margin-bottom: 8px; }
+  .why .bars div { display: grid; grid-template-columns: 90px 1fr 56px; gap: 10px; align-items: center; font-size: 13px; margin: 4px 0; font-variant-numeric: tabular-nums; }
+  .why .bars i { display: block; height: 8px; background: var(--home); border-radius: 4px; }
+  .why .bars i.neg { background: var(--away); }
+  .why .fine { margin-top: 8px; font-size: 12.5px; color: var(--ink-2); }
+  .player .n { font-family: var(--display); font-weight: 700; font-size: 22px; }
+  .player .n span { font-family: var(--body); font-weight: 400; font-size: 13px; color: var(--ink-2); margin-left: 8px; }
+  .player .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 12px; margin-top: 8px; font-size: 12.5px; color: var(--ink-2); }
+  .player .grid b { display: block; font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--ink); }
+
+  /* right rail */
+  .rail > section + section { margin-top: 22px; }
+  .cue { position: relative; background: var(--panel); border: 1px solid var(--rule); border-left: 0; border-radius: var(--r); padding: 12px 14px 12px 22px; overflow: hidden; min-height: 108px; }
+  .cue::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 12px; background: var(--cue-c, var(--goal)); clip-path: polygon(0 0, 100% 0, 45% 100%, 0 100%); }
+  .cue.idle { color: var(--ink-2); }
+  .cue.idle .hl { font-size: 18px; color: var(--ink-2); }
+  .cue .kind { font-size: 12.5px; color: var(--ink-2); }
+  .cue .hl { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.02; margin-top: 2px; }
+  .cue .bd { margin-top: 6px; }
+  .cue .meta { margin-top: 8px; font-size: 12px; color: var(--ink-2); }
+  .cue .meta b { color: var(--ok); font-weight: 600; }
+  .cue .meta b.bad { color: var(--edge); }
+  .cue .rejected { margin-top: 8px; padding: 8px 10px; background: #fff3f0; border: 1px solid #f4c7bd; border-radius: 6px; font-size: 12.5px; }
+  .cue .rejected s { color: #9c3b2b; }
+  .cue .rejected .reason { color: var(--edge); margin-top: 3px; }
+  .cues { margin-top: 10px; max-height: 300px; overflow: auto; }
+  .cues .c { display: grid; grid-template-columns: 48px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 6px; border-top: 1px solid var(--rule); cursor: pointer; font-size: 13.5px; }
+  .cues .c:first-child { border-top: 0; }
+  .cues .c:hover { background: #f6f7f3; }
+  .cues .c.now { background: #fff7dc; }
+  .cues .c .m { font-family: var(--display); font-weight: 700; font-size: 16px; }
+  .cues .c .ok { font-size: 12px; color: var(--ok); white-space: nowrap; }
+  .cues .c .ok.bad { color: var(--edge); }
+
+  .tilt { margin-top: 2px; }
+  .tilt .track { display: flex; height: 12px; border-radius: 6px; overflow: hidden; background: var(--wall-2); }
+  .tilt .track div { transition: width .35s; }
+  .tilt .labels { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-2); margin-top: 5px; font-variant-numeric: tabular-nums; }
+  .stats { margin-top: 12px; display: grid; gap: 8px; }
+  .stat { display: grid; grid-template-columns: 48px 1fr 48px; gap: 10px; align-items: center; font-variant-numeric: tabular-nums; }
+  .stat .hv, .stat .av { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1; }
+  .stat .av { text-align: right; }
+  .stat .mid { text-align: center; }
+  .stat .mid .k { font-size: 12px; color: var(--ink-2); margin-bottom: 3px; }
+  .stat .bars { display: flex; height: 8px; gap: 2px; }
+  .stat .bars > div { flex: 1; display: flex; }
+  .stat .bars > div:first-child { justify-content: flex-end; }
+  .stat .bars i { display: block; height: 100%; border-radius: 4px; transition: width .35s; }
+
+  footer { max-width: 1520px; margin: 0 auto; padding: 0 24px 28px; color: var(--ink-3); font-size: 12.5px; }
+  footer kbd { font: inherit; background: var(--wall-2); border-radius: 4px; padding: 0 5px; color: var(--ink-2); }
+
+  @media (max-width: 1040px) {
+    main { grid-template-columns: 1fr; gap: 22px; }
+    .team .nm { font-size: 26px; }
+    .score { font-size: 52px; }
+    .crest { width: 42px; height: 46px; }
+    .prob .labels b { font-size: 22px; }
+    .cells { grid-template-columns: 1fr 1fr; }
+    .cell { border-left: 0; }
+    .cell:nth-child(even) { border-left: 1px solid var(--rule); }
+    .cell:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    .cell .v { font-size: 36px; }
+    .stage { aspect-ratio: auto; }
+    .stage canvas, .stage .fallback { height: 250px; position: relative; inset: auto; }
+    .stage .loading { inset: 0 0 auto 0; height: 250px; }
+    .overlay { position: static; padding: 8px; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
+    .seg button { padding: 4px 9px; font-size: 12px; }
+    .stage .nudge { display: none; }
+    .player .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .bar { padding: 10px 16px; gap: 8px; position: static; }
+    .bar .hint { display: none; }
+    h2 small { display: block; margin: 6px 0 0; }
+    .scorebug, main, footer { padding-left: 16px; padding-right: 16px; }
+    .teams { gap: 10px; }
+    .team .fm { display: none; }
+    .teams { gap: 6px; }
+    .team { gap: 8px; }
+    .team .nm { font-size: 0; overflow: visible; }
+    .team .nm::after { content: attr(data-short); font-size: 26px; }
+    .score { font-size: 40px; }
+    .cells { grid-template-columns: 1fr; }
+    .cell:nth-child(even) { border-left: 0; }
+    .cell:nth-child(n+2) { border-top: 1px solid var(--rule); }
+    .cell.gamma { order: -1; }
+    .cell.gamma + .cell { border-top: 1px solid var(--rule); }
+    .row { grid-template-columns: 40px 1fr 64px; font-size: 13px; }
+    .hud { top: 8px; left: 8px; padding: 4px 10px; }
+    .hud b { font-size: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="bar">
+  <span class="brand">Knife<i></i>Edge</span>
+  <span class="hint">Synthetic league. No real clubs, players or data.</span>
+  <span class="spacer"></span>
+  <select class="sel" id="match" aria-label="Match"></select>
+  <select class="sel" id="audience" aria-label="Audience"><option value="casual">Fan view</option><option value="analyst">Analyst view</option><option value="bench">Bench view</option></select>
+  <select class="sel" id="lang" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="ta">தமிழ்</option></select>
+  <button class="btn" id="inject" title="Swap in a narrator that invents numbers, and watch the Verifier block it">Simulate a bad narrator</button>
+</header>
+
+<section class="scorebug">
+  <div class="teams">
+    <div class="team home"><svg class="crest" id="crest-home" viewBox="0 0 46 52"></svg><div><div class="nm" id="home-name" data-short="">Home</div><div class="fm" id="home-form"></div></div></div>
+    <div class="centre"><div class="score" id="score">0 – 0</div><div class="clockrow"><span class="clock" id="clock">0'</span><span class="chip" id="state">Pre-match</span></div></div>
+    <div class="team away"><svg class="crest" id="crest-away" viewBox="0 0 46 52"></svg><div><div class="nm" id="away-name" data-short="">Away</div><div class="fm" id="away-form"></div></div></div>
+  </div>
+  <div class="prob" aria-label="Win probability">
+    <div class="labels"><div><b class="num" id="p-home">—</b><span class="w">to win</span></div><div><b class="num" id="p-draw">—</b><span class="w">draw</span></div><div><span class="w">to win</span><b class="num" id="p-away">—</b></div></div>
+    <div class="track"><div id="tr-home"></div><div class="d" id="tr-draw"></div><div id="tr-away"></div></div>
+  </div>
+
+  <section class="band" aria-label="The Greeks of the match">
+    <div class="cells">
+      <div class="cell delta">
+        <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 L43 42 H5 Z"/></svg>
+        <div class="k">Delta <span>the last moment</span></div>
+        <div class="v" id="d-v">—</div>
+        <div class="s" id="d-s">How far the last shot or card moved the match.</div>
+        <svg class="spark" id="sp-d" viewBox="0 0 240 46" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="cell gamma">
+        <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 43 V5 H41 V13"/></svg>
+        <div class="k">Knife-edge <span>the next goal</span></div>
+        <div class="gw"><div><svg viewBox="0 0 200 104" id="gauge"></svg><div class="gl"><span>settled</span><span>knife-edge</span></div></div><div><div class="v" id="g-val">—</div><div class="s" id="g-lab">How far the next goal would swing it, whoever scores.</div></div></div>
+        <svg class="spark" id="sp-g" viewBox="0 0 240 46" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="cell theta">
+        <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="24" rx="16" ry="19"/><path d="M14 24 H34"/></svg>
+        <div class="k">Theta <span>time</span></div>
+        <div class="v" id="th-v">—</div>
+        <div class="s" id="th-s">What every quiet minute is worth to the side in front.</div>
+        <svg class="spark" id="sp-th" viewBox="0 0 240 46" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="cell vega">
+        <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 9 C 11 30 17 42 22 42 C 30 42 39 26 41 6"/></svg>
+        <div class="k">Vega <span>an open game</span></div>
+        <div class="v" id="ve-v">—</div>
+        <div class="s" id="ve-s">Who gains if the match turns end to end.</div>
+        <svg class="spark" id="sp-ve" viewBox="0 0 240 46" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+    </div>
+    <div class="whatif" id="whatif"></div>
+    <div class="wres" id="wres"></div>
+  </section>
+</section>
+
+<main>
+  <section>
+    <div class="stage" id="stage">
+      <canvas id="gl"></canvas>
+      <div class="fallback"><svg id="pitch2d" viewBox="-3 -3 111 74" role="img" aria-label="Pitch with shots and passing sequences"></svg></div>
+      <div class="loading" id="loading">Loading the match…</div>
+      <div class="hud" id="hud"><span>Next goal swings it</span><b id="hud-k">—</b></div>
+      <div class="nudge" id="nudge">Drag to look around, scroll to zoom</div>
+      <div class="overlay">
+        <div class="seg" id="cams" role="group" aria-label="Camera"><button data-cam="broadcast" class="on">Broadcast</button><button data-cam="overhead">Overhead</button><button data-cam="homeend" id="cam-home">Home end</button><button data-cam="awayend" id="cam-away">Away end</button></div>
+        <div class="seg" id="layers" role="group" aria-label="Layers"><button class="sw on" data-layer="shots">Shots</button><button class="sw on" data-layer="passes">Passes</button><button class="sw" data-layer="heat">Touch heat</button></div>
+      </div>
+    </div>
+    <div class="legend"><span style="--dot:#8a919c;--shape:2px">Pillar beside each shooter: Delta, how far that moment moved the match</span><span style="--dot:#f0b400">Goal</span><span style="--dot:#fff;--ring:#8a919c">Disc under the shooter: chance size, xG</span><span style="--dot:#c9ccc3">Ball, the player on it, the last passes</span></div>
+
+    <div class="transport">
+      <button class="play" id="play" aria-label="Play"><svg viewBox="0 0 12 12" id="play-ic"><path d="M2 1l9 5-9 5z"/></svg><span id="play-t">Play</span></button>
+      <div class="seg" id="speeds"><button data-s="15">15×</button><button data-s="30" class="on">30×</button><button data-s="90">90×</button><button data-s="400">400×</button></div>
+      <input type="range" id="scrub" min="0" max="5700" value="0" step="1" aria-label="Match clock">
+      <div class="t" id="t">0'</div>
+    </div>
+    <div class="riverwrap">
+      <svg class="river" id="river" viewBox="0 0 900 190" role="img" aria-label="Win probability over the match"></svg>
+    </div>
+    <div class="river-legend"><span><i id="lg-home"></i>Home win</span><span><i style="background:var(--draw)"></i>Draw</span><span><i id="lg-away"></i>Away win</span><span><i style="background:var(--edge)"></i>Knife-edge, how far the next goal swings it</span><span>Hover to read, click to jump. Dots are shots.</span></div>
+    <div class="moments" id="moments"></div>
+
+    <div class="panel" style="margin-top:22px">
+      <div class="ph"><h2>Match feed <small>click an event to see why it moved the match</small></h2>
+        <div class="filters" id="filters"><button data-f="" class="on">All</button><button data-f="goal">Goals</button><button data-f="shot">Shots</button><button data-f="card">Cards</button><button data-f="sub">Subs</button></div></div>
+      <div class="pb">
+        <div class="feed" id="feed"></div>
+        <div class="why" id="why"></div>
+        <div class="player" id="player"></div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="rail">
+    <section>
+      <div class="ph" style="padding-left:0;padding-right:0;padding-top:0"><h2>On screen now</h2></div>
+      <div class="cue idle" id="cue"><div class="kind" id="cue-kind"></div><div class="hl" id="cue-hl">Overlay cues appear here as the match plays</div><div class="bd" id="cue-bd"></div><div class="meta" id="cue-meta"></div><div id="cue-rej"></div></div>
+      <div class="cues" id="cues"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>Pressure <small>last 10 minutes</small></h2></div>
+      <div class="pb">
+        <div class="tilt"><div class="track"><div id="tilt-home"></div><div id="tilt-away"></div></div><div class="labels"><span id="tilt-l"></span><span id="tilt-r"></span></div></div>
+        <div class="stats" id="stats"></div>
+      </div>
+    </section>
+  </aside>
+</main>
+<div class="tip" id="tip"></div>
+<footer>Probabilities are the engine's estimates of the match state, calibrated on synthetic matches. They are not advice of any kind. Keys: <kbd>space</kbd> play, <kbd>←</kbd> <kbd>→</kbd> a minute, <kbd>1</kbd>–<kbd>4</kbd> cameras.</footer>
+
+<script type="module">
+const $ = id => document.getElementById(id);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const S = { H: null, EV: [], TL: [], MIN: [], CUES: [], MO: [], clock: 0, idx: 0, playing: false, speed: 30, shots: [], seq: [], ball: null, ballTeam: null, ballPlayer: null, lastKey: null, cueIdx: -1, inject: false, endClock: 5700, lastTs: 0, teamColour: {}, h1: 2700, seqVer: 0, shotVer: 0, layers: { shots: true, passes: true, heat: false }, sel: null, hover: null, dirty: false, riverW: 900 };
+
+// ---------- helpers
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const hexRgb = h => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+const rgbHex = ([r, g, b]) => '#' + [r, g, b].map(v => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
+const lum = hex => { const [r, g, b] = hexRgb(hex); return (0.299*r + 0.587*g + 0.114*b) / 255; };
+const mix = (a, b, t) => { const A = hexRgb(a), B = hexRgb(b); return rgbHex(A.map((v, i) => v + (B[i] - v) * t)); };
+const dist = (a, b) => { const A = hexRgb(a), B = hexRgb(b); return Math.hypot(A[0]-B[0], A[1]-B[1], A[2]-B[2]); };
+const label = s => { const h1 = S.h1; if (s < h1) { const m = Math.floor(s / 60); return m >= 45 ? `45+${m-44}'` : `${m + 1}'`; } const m = 45 + Math.floor((s - h1) / 60); return m >= 90 ? `90+${m-89}'` : `${m + 1}'`; };
+const fmt = (v, d = 1) => { const r = Math.round(v * 10 ** d) / 10 ** d; return (r > 0 ? '+' : r < 0 ? '−' : '') + Math.abs(r).toFixed(d); };
+const isHome = tid => tid === S.H.home.team_id;
+const toPitch = (tid, x, y) => isHome(tid) ? [x, y] : [105 - x, 68 - y];
+const playerOf = pid => { for (const [tid, t] of Object.entries(S.H.lineups)) { const p = t.find(q => q.player_id === pid); if (p) return {...p, team_id: tid}; } return null; };
+const short = tid => isHome(tid) ? S.H.home.short : S.H.away.short;
+const colour = tid => S.teamColour[tid];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+const outcomeText = o => ({ goal: 'Goal', saved: 'Shot, saved', off_target: 'Shot, off target', blocked: 'Shot, blocked', post: 'Shot, hit the post' }[o] || ('Shot, ' + String(o).replace('_', ' ')));
+const leaderTheta = s => { const d = s.sc[0] - s.sc[1]; return d > 0 ? s.g.theta_home : d < 0 ? s.g.theta_away : Math.max(s.g.theta_home, s.g.theta_away); };
+
+function tune(hex, side, other) {
+  let c = hex;
+  const l = lum(c);
+  if (l > 0.72) c = mix(c, '#2b3a4d', 0.6);          // white or very pale kits read as slate on the wall
+  else if (l < 0.08) c = '#2f3745';                   // near-black kits become charcoal
+  if (other && dist(c, other) < 70) c = side === 'home' ? '#1f6feb' : '#e8743b';
+  return c;
+}
+function crest(svg, team) {
+  const c = colour(team.team_id), dark = lum(c) > 0.6;
+  svg.innerHTML = `<path d="M23 2 L42 8 V28 C42 40 32 47 23 50 C14 47 4 40 4 28 V8 Z" fill="${c}" stroke="#ffffff" stroke-width="2.2"/>
+  <path d="M23 8 L36 12 V27 C36 36 29 41 23 44 C17 41 10 36 10 27 V12 Z" fill="none" stroke="${dark ? '#10192b44' : '#ffffff66'}" stroke-width="1.5"/>
+  <text x="23" y="31" text-anchor="middle" font-family="Big Shoulders Display, Arial Narrow, sans-serif" font-weight="800" font-size="16" fill="${dark ? '#10192b' : '#ffffff'}">${esc(team.short)}</text>`;
+}
+const tweens = new Map();
+function setNum(el, to, d = 0, suffix = '%') {
+  const from = el._v ?? to; el._v = to;
+  if (RM || from === to) { el.textContent = to.toFixed(d) + suffix; return; }
+  const t0 = performance.now(), dur = 480; cancelAnimationFrame(tweens.get(el));
+  const step = ts => { const k = Math.min(1, (ts - t0) / dur), v = from + (to - from) * ease(k); el.textContent = v.toFixed(d) + suffix; if (k < 1) tweens.set(el, requestAnimationFrame(step)); };
+  tweens.set(el, requestAnimationFrame(step));
+}
+
+// ---------- 3D pitch
+let THREE = null, OrbitControls = null, V = null, GEO = null;
+async function init3D() {
+  try {
+    if (new URLSearchParams(location.search).has('flat')) throw new Error('flat pitch requested with ?flat');
+    THREE = await import('three');
+    ({ OrbitControls } = await import('./vendor/OrbitControls.js'));
+    try { await document.fonts.load('800 44px "Big Shoulders Display"'); } catch {}
+    const canvas = $('gl');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(36, 16 / 9.6, 1, 1200);
+    camera.position.set(0, 72, 108);
+    const controls = new OrbitControls(camera, canvas);
+    controls.target.set(0, 0, 8);
+    controls.enableDamping = !RM; controls.dampingFactor = .08; controls.maxPolarAngle = Math.PI / 2 - .06; controls.minDistance = 20; controls.maxDistance = 260; controls.enablePan = false;
+    controls.addEventListener('start', () => $('nudge').classList.add('gone'));
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xb9c2b2, 1.15));
+    const sun = new THREE.DirectionalLight(0xfff7ea, 2.4); sun.position.set(-70, 120, 80); sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -95, right: 95, top: 95, bottom: -95, near: 10, far: 400 }); sun.shadow.bias = -0.0006;
+    scene.add(sun);
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), new THREE.ShadowMaterial({ opacity: .16 }));
+    ground.rotation.x = -Math.PI / 2; ground.position.y = -1.6; ground.receiveShadow = true; scene.add(ground);
+    const top = new THREE.MeshStandardMaterial({ map: pitchTexture(renderer), roughness: .95, metalness: 0 });
+    const side = new THREE.MeshStandardMaterial({ color: 0x6b5a3e, roughness: 1 });
+    const slab = new THREE.Mesh(new THREE.BoxGeometry(111, 1.6, 74), [side, side, top, side, side, side]);
+    slab.position.y = -0.8; slab.receiveShadow = true; slab.castShadow = true; scene.add(slab);
+    for (const sx of [-1, 1]) scene.add(goalFrame(sx));
+    const shotsG = new THREE.Group(), trailsG = new THREE.Group(), arcsG = new THREE.Group(), actorsG = new THREE.Group(); scene.add(shotsG, trailsG, arcsG, actorsG);
+    const ball = new THREE.Mesh(new THREE.SphereGeometry(.7, 24, 16), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .35 }));
+    ball.castShadow = true; ball.visible = false; scene.add(ball);
+    const heatCanvas = document.createElement('canvas'); heatCanvas.width = 420; heatCanvas.height = 272;
+    const heatTex = new THREE.CanvasTexture(heatCanvas); heatTex.colorSpace = THREE.SRGBColorSpace;
+    const heat = new THREE.Mesh(new THREE.PlaneGeometry(105, 68), new THREE.MeshBasicMaterial({ map: heatTex, transparent: true, opacity: .8, depthWrite: false }));
+    heat.rotation.x = -Math.PI / 2; heat.position.y = .06; heat.visible = false; scene.add(heat);
+    V = { renderer, scene, camera, controls, shotsG, trailsG, arcsG, actorsG, ball, ballTarget: null, ballPrev: null, actors: {}, actorTeam: null, nameLab: null, namePid: null, heat, heatCanvas, heatTex, heatIdx: -1, fly: null, raycaster: new THREE.Raycaster(), pointer: new THREE.Vector2(), down: null, seqVer: -1, shotVer: -1, t: 0, heading: 0 };
+    const ro = new ResizeObserver(() => resize3D()); ro.observe($('stage')); resize3D();
+    canvas.addEventListener('pointermove', onPointer3D); canvas.addEventListener('pointerleave', () => { hideTip(); setHover(null); });
+    canvas.addEventListener('pointerdown', e => { V.down = [e.clientX, e.clientY]; });
+    canvas.addEventListener('pointerup', e => { if (V.down && Math.hypot(e.clientX - V.down[0], e.clientY - V.down[1]) < 6 && S.hover != null) { select(S.hover); why(S.shots[S.hover].ev.event_id); } V.down = null; });
+    return true;
+  } catch (err) {
+    console.warn('3D view unavailable, using the flat pitch', err);
+    $('stage').classList.add('is2d'); $('cams').style.display = 'none'; $('nudge').style.display = 'none';
+    return false;
+  }
+}
+function resize3D() {
+  if (!V) return; const st = $('stage'), w = st.clientWidth, h = $('gl').clientHeight || st.clientHeight; V.renderer.setSize(w, h, false);
+  V.camera.aspect = w / h;
+  V.camera.fov = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(58) / 2) / V.camera.aspect) * 180 / Math.PI; V.camera.updateProjectionMatrix();
+}
+function pitchTexture(renderer) {
+  const U = 16, W = 111 * U, H = 74 * U, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+  g.fillStyle = '#2f8a4f'; g.fillRect(0, 0, W, H);
+  const ox = 3 * U, oy = 3 * U;
+  for (let i = 0; i < 10; i++) { g.fillStyle = i % 2 ? '#3fa362' : '#389a5a'; g.fillRect(ox + i * 10.5 * U, oy, 10.5 * U + 1, 68 * U); }
+  g.strokeStyle = '#f5f8f3'; g.lineWidth = .14 * U; g.lineCap = 'round';
+  const R = (x, y, w, h) => g.strokeRect(ox + x * U, oy + y * U, w * U, h * U);
+  const L = (x1, y1, x2, y2) => { g.beginPath(); g.moveTo(ox + x1 * U, oy + y1 * U); g.lineTo(ox + x2 * U, oy + y2 * U); g.stroke(); };
+  const A = (x, y, r, a0, a1, fill) => { g.beginPath(); g.arc(ox + x * U, oy + y * U, r * U, a0, a1); fill ? (g.fillStyle = '#f5f8f3', g.fill()) : g.stroke(); };
+  R(0, 0, 105, 68); L(52.5, 0, 52.5, 68); A(52.5, 34, 9.15, 0, Math.PI * 2); A(52.5, 34, .35, 0, Math.PI * 2, true);
+  R(0, 13.84, 16.5, 40.32); R(88.5, 13.84, 16.5, 40.32); R(0, 24.84, 5.5, 18.32); R(99.5, 24.84, 5.5, 18.32);
+  A(11, 34, .35, 0, Math.PI * 2, true); A(94, 34, .35, 0, Math.PI * 2, true);
+  const th = Math.acos(5.5 / 9.15); A(11, 34, 9.15, -th, th); A(94, 34, 9.15, Math.PI - th, Math.PI + th);
+  for (const [x, y, a0] of [[0, 0, 0], [105, 0, Math.PI / 2], [105, 68, Math.PI], [0, 68, -Math.PI / 2]]) A(x, y, 1, a0, a0 + Math.PI / 2);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t;
+}
+function goalFrame(sx) {
+  const g = new THREE.Group(), white = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .5 });
+  const post = new THREE.CylinderGeometry(.12, .12, 2.44, 12);
+  for (const z of [-3.66, 3.66]) { const m = new THREE.Mesh(post, white); m.position.set(sx * 52.5, 1.22, z); m.castShadow = true; g.add(m); }
+  const bar = new THREE.Mesh(new THREE.CylinderGeometry(.12, .12, 7.56, 12), white); bar.rotation.x = Math.PI / 2; bar.position.set(sx * 52.5, 2.44, 0); bar.castShadow = true; g.add(bar);
+  const net = new THREE.Mesh(new THREE.BoxGeometry(2, 2.44, 7.32), new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true, opacity: .22, roughness: 1, depthWrite: false }));
+  net.position.set(sx * 53.5, 1.22, 0); g.add(net);
+  g.add(new THREE.LineSegments(new THREE.EdgesGeometry(net.geometry), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: .55 })).translateX(sx * 53.5).translateY(1.22));
+  return g;
+}
+const toWorld = (x, y) => [x - 52.5, y - 34];
+function geos() {
+  if (GEO) return GEO;
+  const leg = new THREE.CapsuleGeometry(.065, .5, 3, 10); leg.translate(0, -.315, 0);     // pivot at the hip
+  const arm = new THREE.CapsuleGeometry(.05, .38, 3, 8); arm.translate(0, -.24, 0);       // pivot at the shoulder
+  const pillar = new THREE.BoxGeometry(.7, 1, .7); pillar.translate(0, .5, 0);            // grows from the turf
+  GEO = { head: new THREE.SphereGeometry(.14, 16, 12), torso: new THREE.CapsuleGeometry(.2, .36, 4, 12), shorts: new THREE.CylinderGeometry(.18, .21, .26, 12), leg, arm, boot: new THREE.BoxGeometry(.13, .08, .26), pillar, disc: new THREE.CircleGeometry(1, 36), ring: new THREE.RingGeometry(.86, 1, 36) };
+  return GEO;
+}
+// a low-poly player in a kit: stand, or kick (the strike just happened)
+function figure(kit, pose = 'stand') {
+  const G = geos(), g = new THREE.Group(), dark = mix(kit, '#10192b', .5);
+  const M = hex => new THREE.MeshStandardMaterial({ color: hex, roughness: .65, transparent: true });
+  const kitM = M(kit), darkM = M(dark), skinM = M('#d9b08f'), bootM = M('#10192b');
+  const mk = (geo, m, x, y, z, rx = 0, rz = 0, parent = g) => { const mesh = new THREE.Mesh(geo, m); mesh.position.set(x, y, z); mesh.rotation.set(rx, 0, rz); mesh.castShadow = true; parent.add(mesh); return mesh; };
+  const kick = pose === 'kick';
+  mk(G.head, skinM, 0, 1.66, kick ? .06 : 0);
+  mk(G.torso, kitM, 0, 1.18, 0, kick ? .2 : 0);
+  mk(G.shorts, darkM, 0, .78, 0);
+  const l1 = mk(G.leg, darkM, -.1, .72, 0, kick ? .35 : 0);          // standing leg, planted back
+  const l2 = mk(G.leg, darkM, .1, .72, 0, kick ? -1.15 : 0);         // kicking leg, followed through
+  mk(G.boot, bootM, 0, -.6, .05, 0, 0, l1); mk(G.boot, bootM, 0, -.6, .05, 0, 0, l2);
+  mk(G.arm, kitM, -.3, 1.42, 0, kick ? -.8 : .15, .3);
+  mk(G.arm, kitM, .3, 1.42, 0, kick ? .8 : -.15, -.3);
+  g.scale.setScalar(2.5); g.userData.mats = [kitM, darkM, skinM, bootM];
+  return g;
+}
+function roundRect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function labelSprite(text, { bg = '#10192b', fg = '#ffffff', size = 1 } = {}) {
+  const c = document.createElement('canvas'), g = c.getContext('2d'), f = '800 48px "Big Shoulders Display", "Arial Narrow", sans-serif';
+  g.font = f; const w = Math.ceil(g.measureText(text).width) + 40; c.width = w; c.height = 72;
+  g.font = f; g.fillStyle = bg; roundRect(g, 2, 2, w - 4, 68, 16); g.fill();
+  g.fillStyle = fg; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, w / 2, 38);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.minFilter = THREE.LinearFilter;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, depthTest: false })); const h = 2.4 * size; sp.scale.set(h * w / 72, h, 1); sp.renderOrder = 5;
+  return sp;
+}
+// one shot: the shooter frozen mid-strike, a disc for the chance size, a pillar for the Delta
+function shotGroup(s, i) {
+  const G = geos(), [X, Z] = toWorld(s.x, s.y), goal = s.ev.outcome === 'goal', gx = isHome(s.ev.team_id) ? 52.5 : -52.5;
+  const dx = gx - X, dz = -Z, len = Math.hypot(dx, dz) || 1, ux = dx / len, uz = dz / len;
+  const root = new THREE.Group(); root.userData.i = i;
+  const f = figure(colour(s.ev.team_id), 'kick'); f.position.set(X - ux * 2.4, 0, Z - uz * 2.4); f.rotation.y = Math.atan2(ux, uz); root.add(f);
+  const r = 1.3 + 3.4 * Math.sqrt(s.ev.shot.xg);
+  const disc = new THREE.Mesh(G.disc, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .42, depthWrite: false })); disc.rotation.x = -Math.PI / 2; disc.scale.setScalar(r); disc.position.set(X, .04, Z); root.add(disc);
+  const ring = new THREE.Mesh(G.ring, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .9, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.scale.setScalar(r); ring.position.set(X, .05, Z); root.add(ring);
+  const sw = s.tl.sw, h = .5 + Math.abs(sw) * .55, c = sw >= 0 ? colour(S.H.home.team_id) : colour(S.H.away.team_id), pc = goal ? '#f0b400' : c;
+  const p = new THREE.Mesh(G.pillar, new THREE.MeshStandardMaterial({ color: pc, emissive: pc, emissiveIntensity: goal ? .3 : .08, roughness: .5, transparent: true }));
+  p.scale.y = h; p.position.set(X, 0, Z); p.castShadow = true; root.add(p);
+  const mats = [...f.userData.mats, disc.material, ring.material, p.material];
+  if (Math.abs(sw) >= 2.5 || goal) { const lab = labelSprite(fmt(sw), { bg: pc, fg: goal ? '#3d2d00' : '#ffffff' }); lab.position.set(X, h + 2.2, Z); root.add(lab); mats.push(lab.material); }
+  Object.assign(root.userData, { fig: f, pillar: p, mats, op: 1 });
+  return root;
+}
+function goalArc(s) {
+  const [X, Z] = toWorld(s.x, s.y), gx = isHome(s.ev.team_id) ? 52.3 : -52.3, gz = clamp((s.ev.end_y ?? 34) - 34, -3.2, 3.2);
+  const d = Math.hypot(gx - X, gz - Z);
+  const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(X, .6, Z), new THREE.Vector3((X + gx) / 2, 2.5 + d * .18, (Z + gz) / 2), new THREE.Vector3(gx, 1.3, gz));
+  return new THREE.Mesh(new THREE.TubeGeometry(curve, 32, .16, 8, false), new THREE.MeshStandardMaterial({ color: 0xf0b400, emissive: 0xf0b400, emissiveIntensity: .35, roughness: .4 }));
+}
+function trailMesh(q) {
+  const [x1, z1] = toWorld(q.x1, q.y1), [x2, z2] = toWorld(q.x2, q.y2), len = Math.hypot(x2 - x1, z2 - z1) || .1;
+  const c = q.ok ? colour(q.team) : '#e2452c';
+  const geo = new THREE.PlaneGeometry(len, q.carry ? .9 : .45); geo.rotateX(-Math.PI / 2);
+  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 1, depthWrite: false }));
+  m.rotation.y = -Math.atan2(z2 - z1, x2 - x1);
+  m.position.set((x1 + x2) / 2, .22, (z1 + z2) / 2); m.userData.t = q.t;
+  if (!q.carry) { const dot = new THREE.Mesh(new THREE.CircleGeometry(.7, 20), new THREE.MeshBasicMaterial({ color: c, transparent: true, depthWrite: false })); dot.rotation.x = -Math.PI / 2; dot.position.set(x2, .24, z2); dot.userData.t = q.t; m.userData.dot = dot; }
+  return m;
+}
+function clearGroup(g) { g.traverse(o => { if (o.isMesh || o.isSprite) { o.geometry?.dispose?.(); if (o.material?.map && o.isSprite) o.material.map.dispose(); o.material?.dispose?.(); } }); g.clear(); }
+function sync3D() {
+  if (!V) return;
+  if (V.shotVer !== S.shotVer) {
+    V.shotVer = S.shotVer; clearGroup(V.shotsG); clearGroup(V.arcsG);
+    S.shots.forEach((s, i) => { V.shotsG.add(shotGroup(s, i)); if (s.ev.outcome === 'goal') V.arcsG.add(goalArc(s)); });
+  }
+  if (V.seqVer !== S.seqVer) {
+    V.seqVer = S.seqVer; clearGroup(V.trailsG);
+    for (const q of S.seq) { const m = trailMesh(q); V.trailsG.add(m); if (m.userData.dot) V.trailsG.add(m.userData.dot); }
+  }
+  if (S.ball) { const [X, Z] = toWorld(S.ball[0], S.ball[1]); if (!V.ballTarget || V.ballTarget[0] !== X || V.ballTarget[1] !== Z) V.ballTarget = [X, Z]; if (!V.ball.visible) { V.ball.position.set(X, .7, Z); V.ball.visible = true; } }
+  else V.ball.visible = false;
+  // the player on the ball
+  if (S.ballTeam && !V.actors[S.ballTeam]) { const a = figure(colour(S.ballTeam), 'stand'); a.visible = false; V.actors[S.ballTeam] = a; V.actorsG.add(a); }
+  for (const [tid, a] of Object.entries(V.actors)) a.visible = !!S.ball && tid === S.ballTeam;
+  if (S.ballPlayer !== V.namePid) { V.namePid = S.ballPlayer; if (V.nameLab) { V.actorsG.remove(V.nameLab); V.nameLab.material.map.dispose(); V.nameLab.material.dispose(); V.nameLab = null; }
+    const p = S.ballPlayer && playerOf(S.ballPlayer); if (p) { V.nameLab = labelSprite(`${p.shirt}  ${p.name.split(' ').slice(-1)[0]}`, { bg: '#ffffff', fg: '#10192b', size: .85 }); V.actorsG.add(V.nameLab); } }
+  V.shotsG.visible = V.arcsG.visible = S.layers.shots; V.trailsG.visible = S.layers.passes; V.heat.visible = S.layers.heat;
+  if (S.layers.heat && (V.heatIdx > S.idx || S.idx - V.heatIdx > 25 || (S.idx === S.EV.length && V.heatIdx !== S.idx))) drawHeat();
+}
+function drawHeat() {
+  const g = V.heatCanvas.getContext('2d'), W = V.heatCanvas.width, H = V.heatCanvas.height; g.clearRect(0, 0, W, H); V.heatIdx = S.idx;
+  g.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < S.idx; i++) { const e = S.EV[i]; if (e.x == null || !S.teamColour[e.team_id]) continue; const [x, y] = toPitch(e.team_id, e.x, e.y);
+    const [r, gg, b] = hexRgb(colour(e.team_id)); const px = x / 105 * W, py = y / 68 * H, rad = 28;
+    const grd = g.createRadialGradient(px, py, 0, px, py, rad); grd.addColorStop(0, `rgba(${r},${gg},${b},.055)`); grd.addColorStop(1, `rgba(${r},${gg},${b},0)`);
+    g.fillStyle = grd; g.fillRect(px - rad, py - rad, rad * 2, rad * 2); }
+  V.heatTex.needsUpdate = true;
+}
+function update3D(dt) {
+  if (!V) return;
+  V.t += dt;
+  if (V.ball.visible && V.ballTarget) {
+    const k = RM ? 1 : 1 - Math.pow(.0005, dt), b = V.ball.position, px = b.x, pz = b.z;
+    b.x += (V.ballTarget[0] - b.x) * k; b.z += (V.ballTarget[1] - b.z) * k;
+    const vx = b.x - px, vz = b.z - pz, sp = Math.hypot(vx, vz);
+    if (sp > .02) V.heading = Math.atan2(vx, vz);
+    const a = V.actors[S.ballTeam];
+    if (a && a.visible) { a.position.set(b.x - Math.sin(V.heading) * 1.6, 0, b.z - Math.cos(V.heading) * 1.6); a.rotation.y = V.heading; if (V.nameLab) V.nameLab.position.set(a.position.x, 5.2, a.position.z); }
+    V.ball.rotation.x += sp * .9;
+  }
+  for (const m of V.trailsG.children) m.material.opacity = clamp(.95 - (S.clock - m.userData.t) / 22, .06, .95);
+  for (const root of V.shotsG.children) {
+    const i = root.userData.i, s = S.shots[i], goal = s.ev.outcome === 'goal', on = i === S.sel || i === S.hover;
+    const op = on || goal ? 1 : (S.clock - s.ev.clock_s > 900 ? .5 : 1);          // chances older than 15 minutes fade to ghosts
+    if (root.userData.op !== op) { root.userData.op = op; for (const m of root.userData.mats) m.opacity = op; }
+    const sc = on ? 1.12 + (RM ? 0 : .04 * Math.sin(V.t * 6)) : 1;
+    root.userData.fig.scale.setScalar(2.5 * sc); root.userData.pillar.scale.x = root.userData.pillar.scale.z = sc;
+    root.userData.pillar.material.emissiveIntensity = on ? .5 : (goal ? .3 : .08);
+  }
+  if (V.fly) { const f = V.fly, k = ease(Math.min(1, (performance.now() - f.t0) / f.dur)); V.camera.position.lerpVectors(f.p0, f.p1, k); V.controls.target.lerpVectors(f.c0, f.c1, k); if (k >= 1) { V.fly = null; V.controls.enabled = true; } }
+  V.controls.update(); V.renderer.render(V.scene, V.camera);
+}
+const CAMS = { broadcast: [[0, 72, 108], [0, 0, 8]], overhead: [[0, 112, .01], [0, 0, 0]], homeend: [[122, 44, 0], [14, 0, 0]], awayend: [[-122, 44, 0], [-14, 0, 0]] };
+function flyTo(name) {
+  if (!V) return; const [p, c] = CAMS[name];
+  $('cams').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.cam === name));
+  const p1 = new THREE.Vector3(...p), c1 = new THREE.Vector3(...c);
+  if (RM) { V.camera.position.copy(p1); V.controls.target.copy(c1); return; }
+  V.fly = { p0: V.camera.position.clone(), p1, c0: V.controls.target.clone(), c1, t0: performance.now(), dur: 900 }; V.controls.enabled = false;
+}
+function onPointer3D(e) {
+  const r = $('gl').getBoundingClientRect(); V.pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  V.raycaster.setFromCamera(V.pointer, V.camera);
+  let hit = S.layers.shots ? V.raycaster.intersectObjects(V.shotsG.children, true)[0]?.object : null;
+  while (hit && hit.userData.i === undefined) hit = hit.parent;
+  if (hit) { setHover(hit.userData.i); showTip(e, S.shots[hit.userData.i]); $('gl').style.cursor = 'pointer'; }
+  else { setHover(null); hideTip(); $('gl').style.cursor = ''; }
+}
+function setHover(i) { S.hover = i; }
+function select(i) { S.sel = i; document.querySelectorAll('#feed .row').forEach(el => el.classList.toggle('sel', +el.dataset.i === (i == null ? -1 : S.shots[i].ev.event_id))); }
+
+// ---------- load
+async function loadMatches() {
+  const ms = await (await fetch('/matches')).json();
+  $('match').innerHTML = ms.map(m => `<option value="${m.match_id}">${esc(m.home.name)} v ${esc(m.away.name)}</option>`).join('');
+  if (ms.length) await loadMatch(ms[0].match_id);
+}
+async function loadMatch(id) {
+  stop(); $('loading').classList.remove('hide');
+  const [d, ev, tl, mins, mo] = await Promise.all([`/matches/${id}`, `/matches/${id}/events`, `/matches/${id}/timeline`, `/matches/${id}/minutes`, `/matches/${id}/moments?n=6`].map(u => fetch(u).then(r => r.json())));
+  S.H = d.header; S.EV = ev; S.TL = tl; S.MIN = mins; S.MO = mo; S.sel = null; S.hover = null;
+  const hc = tune(S.H.home.colour, 'home'); S.teamColour = { [S.H.home.team_id]: hc, [S.H.away.team_id]: tune(S.H.away.colour, 'away', hc) };
+  const ac = S.teamColour[S.H.away.team_id], rs = document.documentElement.style;
+  rs.setProperty('--home', hc); rs.setProperty('--away', ac); rs.setProperty('--home-t', hc + '1f'); rs.setProperty('--away-t', ac + '1f');
+  $('home-name').textContent = S.H.home.name; $('away-name').textContent = S.H.away.name;
+  $('home-name').dataset.short = S.H.home.short; $('away-name').dataset.short = S.H.away.short;
+  $('home-form').textContent = `${S.H.home.formation}, at home`; $('away-form').textContent = `${S.H.away.formation}, away`;
+  crest($('crest-home'), S.H.home); crest($('crest-away'), S.H.away);
+  $('lg-home').style.background = hc; $('lg-away').style.background = ac;
+  $('cam-home').textContent = `${S.H.home.short} end`; $('cam-home').title = `Behind the goal ${S.H.home.name} attack`;
+  $('cam-away').textContent = `${S.H.away.short} end`; $('cam-away').title = `Behind the goal ${S.H.away.name} attack`;
+  S.endClock = S.EV[S.EV.length - 1].clock_s; $('scrub').max = Math.ceil(S.endClock);
+  const p1 = (S.H.periods || []).find(x => x.period === 1); S.h1 = p1 ? p1.regulation_s + p1.stoppage_s : 2700;
+  if (V) { clearGroup(V.actorsG); V.actors = {}; V.nameLab = null; V.namePid = null; V.heatIdx = -1; flyTo('broadcast'); }
+  buildWhatIf(); drawRiverBase(); drawMoments(); drawSparks();
+  await loadCues();
+  seek(0); $('loading').classList.add('hide');
+}
+async function loadCues() {
+  const id = $('match').value; if (!id) return;
+  const q = new URLSearchParams({ audience: $('audience').value, lang: $('lang').value, max: 14, inject: S.inject ? 1 : 0 });
+  S.CUES = await (await fetch(`/matches/${id}/cues?${q}`)).json();
+  $('cues').innerHTML = S.CUES.map((c, i) => { const n = c.verifier.rejected_drafts.length; return `<div class="c" data-i="${i}" tabindex="0"><span class="m num">${label(c.t_in_s)}</span><span>${esc(c.headline)}</span><span class="ok ${c.verifier.passed ? '' : 'bad'}">${c.verifier.passed ? 'verified' : 'rejected'}${n ? `, ${n} draft${n > 1 ? 's' : ''} blocked` : ''}</span></div>`; }).join('');
+  document.querySelectorAll('#cues .c').forEach(el => { const go = () => seek(S.CUES[+el.dataset.i].t_in_s); el.onclick = go; el.onkeydown = e => { if (e.key === 'Enter') go(); }; });
+  S.cueIdx = -1; renderCue();
+}
+
+// ---------- playback
+function seek(t) {
+  stop();
+  S.clock = clamp(t, 0, S.endClock); S.idx = 0; S.shots = []; S.seq = []; S.ball = null; S.ballTeam = null; S.ballPlayer = null; S.lastKey = null; S.cueIdx = -1; S.shotVer++; S.seqVer++; S.sel = null;
+  $('feed').innerHTML = ''; clearWhatIf();
+  while (S.idx < S.EV.length && S.EV[S.idx].clock_s <= S.clock) apply(S.idx++);
+  renderAll();
+}
+function apply(i) {
+  const ev = S.EV[i], tl = S.TL[i];
+  if (ev.type === 'shot') { const [x, y] = toPitch(ev.team_id, ev.x, ev.y); S.shots.push({ x, y, ev, tl }); S.shotVer++; S.seq = []; S.seqVer++; S.ball = [x, y]; }
+  else if ((ev.type === 'pass' || ev.type === 'carry') && ev.end_x != null) {
+    const [x1, y1] = toPitch(ev.team_id, ev.x, ev.y), [x2, y2] = toPitch(ev.team_id, ev.end_x, ev.end_y);
+    S.seq.push({ x1, y1, x2, y2, t: ev.clock_s, team: ev.team_id, ok: ev.outcome === 'success', carry: ev.type === 'carry' });
+    if (S.seq.length > 10) S.seq.shift(); S.seqVer++; S.ball = [x2, y2];
+  } else if (ev.x != null) S.ball = toPitch(ev.team_id, ev.x, ev.y);
+  if (ev.x != null && S.teamColour[ev.team_id]) { S.ballTeam = ev.team_id; S.ballPlayer = ev.player_id; }
+  if (ev.type === 'shot' || ev.type === 'card') { S.lastKey = { ev, tl }; clearWhatIf(); }
+  if (['shot', 'card', 'substitution'].includes(ev.type)) feedRow(ev, tl);
+}
+function clearWhatIf() { const r = $('wres'); if (r.style.display === 'block') { r.style.display = 'none'; $('whatif').querySelectorAll('button').forEach(x => x.classList.remove('on')); } }
+function feedRow(ev, tl) {
+  const p = playerOf(ev.player_id), goal = ev.outcome === 'goal';
+  let what = ev.type, cls = ev.type === 'substitution' ? 'sub' : ev.type;
+  if (ev.type === 'shot') what = outcomeText(ev.outcome);
+  if (ev.type === 'card') { const c = ev.card.colour.replace('_', ' '); what = c[0].toUpperCase() + c.slice(1) + ' card'; }
+  if (ev.type === 'substitution') what = 'Substitution on';
+  const extra = ev.shot ? ` <span class="who">xG ${ev.shot.xg.toFixed(2)}${tl.xs != null ? `, worth ${Math.abs(tl.xs).toFixed(1)} pts</span>` : '</span>'}` : '';
+  const row = document.createElement('div');
+  row.className = `row ${cls} ${goal ? 'goal' : ''}`; row.tabIndex = 0; row.dataset.i = ev.event_id;
+  row.innerHTML = `<span class="m num">${tl.l}</span><span><span class="what">${what}</span>${extra} <span class="who">${short(ev.team_id)}, <a data-p="${ev.player_id}">${esc(p ? p.name : '')}</a></span></span><span class="sw ${tl.sw > 0.05 ? 'up' : tl.sw < -0.05 ? 'dn' : ''}">${fmt(tl.sw)}</span>`;
+  const open = () => { why(ev.event_id); const si = S.shots.findIndex(s => s.ev.event_id === ev.event_id); select(si >= 0 ? si : null); };
+  row.onclick = e => { if (e.target.dataset.p) playerCard(e.target.dataset.p); else open(); };
+  row.onkeydown = e => { if (e.key === 'Enter') open(); };
+  $('feed').prepend(row);
+}
+function frame(ts) {
+  const dt = Math.min(.1, (ts - (S.lastTs || ts)) / 1000); S.lastTs = ts;
+  if (S.playing) {
+    S.clock = Math.min(S.endClock, S.clock + dt * S.speed);
+    let changed = false;
+    while (S.idx < S.EV.length && S.EV[S.idx].clock_s <= S.clock) { apply(S.idx++); changed = true; }
+    renderTransport(); renderPlayhead(); renderMomentsState(); renderSparkReveal();
+    if (changed) { renderScorebug(); renderGreeks(); renderPressure(); }
+    renderCue();
+    if (S.clock >= S.endClock) stop();
+  }
+  if (V) { sync3D(); update3D(dt); } else if (S.H && (S.playing || S.dirty)) { render2D(); S.dirty = false; }
+  requestAnimationFrame(frame);
+}
+function play() { if (S.clock >= S.endClock) seek(0); S.playing = true; $('play-t').textContent = 'Pause'; $('play-ic').innerHTML = '<path d="M1 1h3.5v10H1zM7.5 1H11v10H7.5z"/>'; }
+function stop() { S.playing = false; $('play-t').textContent = 'Play'; $('play-ic').innerHTML = '<path d="M2 1l9 5-9 5z"/>'; }
+function renderAll() { renderTransport(); renderPlayhead(); renderScorebug(); renderGreeks(); renderPressure(); renderCue(); renderMomentsState(); renderSparkReveal(); S.dirty = true; }
+const snap0 = () => ({ p: [S.MIN[0].greeks.p_home / 100, S.MIN[0].greeks.p_draw / 100, S.MIN[0].greeks.p_away / 100], sc: [0, 0], men: [11, 11], g: S.MIN[0].greeks, l: "0'", sw: 0 });
+const snap = () => S.idx ? S.TL[S.idx - 1] : snap0();
+
+// ---------- renderers
+function renderScorebug() {
+  const s = snap(), H = S.H;
+  $('score').textContent = `${s.sc[0]} – ${s.sc[1]}`;
+  const st = $('state'); const k = s.g.knife_edge;
+  if (S.idx === 0) { st.textContent = 'Pre-match'; st.className = 'chip'; }
+  else if (s.men[0] < 11 || s.men[1] < 11) { st.textContent = `${s.men[0]} v ${s.men[1]}`; st.className = 'chip red'; }
+  else if (k >= 30) { st.textContent = 'Knife-edge'; st.className = 'chip hot'; }
+  else if (k >= 20) { st.textContent = 'Fragile'; st.className = 'chip warm'; }
+  else { st.textContent = k >= 10 ? 'Settled' : 'Decided'; st.className = 'chip'; }
+  const [ph, pd, pa] = s.p;
+  setNum($('p-home'), 100 * ph, 0); setNum($('p-draw'), 100 * pd, 0); setNum($('p-away'), 100 * pa, 0);
+  $('tr-home').style.width = (100 * ph).toFixed(1) + '%'; $('tr-home').style.background = colour(H.home.team_id);
+  $('tr-draw').style.width = (100 * pd).toFixed(1) + '%';
+  $('tr-away').style.width = (100 * pa).toFixed(1) + '%'; $('tr-away').style.background = colour(H.away.team_id);
+}
+function renderTransport() { const l = label(S.clock); $('clock').textContent = l; $('t').textContent = l; $('scrub').value = Math.floor(S.clock); }
+
+function render2D() {
+  const svg = $('pitch2d');
+  let g = `<defs><pattern id="stripes" width="10.5" height="68" patternUnits="userSpaceOnUse"><rect width="5.25" height="68" fill="#3fa362"/><rect x="5.25" width="5.25" height="68" fill="#389a5a"/></pattern></defs>
+    <rect x="-3" y="-3" width="111" height="74" rx="1" fill="#2f8a4f"/><rect width="105" height="68" fill="url(#stripes)"/>`;
+  const L = `fill="none" stroke="#f5f8f3" stroke-width=".4"`;
+  g += `<rect width="105" height="68" ${L}/><line x1="52.5" y1="0" x2="52.5" y2="68" ${L}/><circle cx="52.5" cy="34" r="9.15" ${L}/><circle cx="52.5" cy="34" r=".5" fill="#f5f8f3"/>
+    <rect x="0" y="13.84" width="16.5" height="40.32" ${L}/><rect x="88.5" y="13.84" width="16.5" height="40.32" ${L}/><rect x="0" y="24.84" width="5.5" height="18.32" ${L}/><rect x="99.5" y="24.84" width="5.5" height="18.32" ${L}/>
+    <circle cx="11" cy="34" r=".5" fill="#f5f8f3"/><circle cx="94" cy="34" r=".5" fill="#f5f8f3"/><path d="M16.5 26.6 A9.15 9.15 0 0 1 16.5 41.4" ${L}/><path d="M88.5 26.6 A9.15 9.15 0 0 0 88.5 41.4" ${L}/>
+    <rect x="-1.5" y="30.34" width="1.5" height="7.32" ${L}/><rect x="105" y="30.34" width="1.5" height="7.32" ${L}/>`;
+  if (S.layers.passes) for (const q of S.seq) { const op = clamp(.95 - (S.clock - q.t) / 22, .08, .95), c = q.ok ? colour(q.team) : '#e2452c';
+    g += `<line x1="${q.x1}" y1="${q.y1}" x2="${q.x2}" y2="${q.y2}" stroke="${c}" stroke-width="${q.carry ? 1 : .5}" opacity="${op.toFixed(2)}" stroke-linecap="round"/>`; if (!q.carry) g += `<circle cx="${q.x2}" cy="${q.y2}" r=".8" fill="${c}" opacity="${op.toFixed(2)}"/>`; }
+  if (S.layers.shots) S.shots.forEach((s, i) => { const c = colour(s.ev.team_id), goal = s.ev.outcome === 'goal', r = .9 + 4 * Math.sqrt(s.ev.shot.xg), sw = s.tl.sw, bc = goal ? '#f0b400' : (sw >= 0 ? colour(S.H.home.team_id) : colour(S.H.away.team_id));
+    g += `<circle class="shot" data-i="${i}" cx="${s.x}" cy="${s.y}" r="${r.toFixed(2)}" fill="${goal ? '#f0b400' : c}" fill-opacity="${goal ? 1 : .75}" stroke="#fff" stroke-width=".7" style="cursor:pointer"/>`;
+    g += `<rect x="${s.x - .6}" y="${s.y - r - .4 - Math.abs(sw) * .25}" width="1.2" height="${(Math.abs(sw) * .25).toFixed(2)}" fill="${bc}" stroke="#fff" stroke-width=".2"/>`;
+    if (goal) g += `<line x1="${s.x}" y1="${s.y}" x2="${isHome(s.ev.team_id) ? 105 : 0}" y2="34" stroke="#f0b400" stroke-width=".4" stroke-dasharray="1 1"/>`; });
+  if (S.ball) g += `<circle cx="${S.ball[0]}" cy="${S.ball[1]}" r="1.1" fill="#fff" stroke="#10192b" stroke-width=".25"/>`;
+  svg.innerHTML = g;
+  svg.querySelectorAll('.shot').forEach(el => { el.onmousemove = e => showTip(e, S.shots[+el.dataset.i]); el.onmouseleave = hideTip; el.onclick = () => why(S.shots[+el.dataset.i].ev.event_id); });
+}
+function showTip(e, s) {
+  const t = $('tip'), p = playerOf(s.ev.player_id);
+  t.innerHTML = `<b>${esc(p ? p.name : '')}</b>${short(s.ev.team_id)}, ${s.tl.l}. ${outcomeText(s.ev.outcome)}, xG ${s.ev.shot.xg.toFixed(2)}, ${s.ev.shot.distance_m} m, ${s.ev.shot.body_part.replace('_', ' ')}${s.ev.under_pressure ? ', under pressure' : ''}.<div class="row2"><span>Delta ${fmt(s.tl.sw)} pts, the chance was worth ${Math.abs(s.tl.xs || 0).toFixed(1)}</span></div><div class="row2"><span>Click for why it moved</span></div>`;
+  t.style.display = 'block'; place(t, e);
+}
+function place(t, e) { const w = t.offsetWidth || 240, x = e.clientX + 16 + w > innerWidth ? e.clientX - w - 12 : e.clientX + 16; t.style.left = x + 'px'; t.style.top = (e.clientY + 14) + 'px'; }
+function hideTip() { $('tip').style.display = 'none'; }
+
+function drawRiverBase() {
+  const svg = $('river'), W = S.riverW = Math.max(320, Math.round(svg.clientWidth || 900)), H = 190, T = S.endClock, PAD = 18;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const x = t => (t / T) * W, y = p => H - PAD - p * (H - 2 * PAD);
+  const pts = S.TL.filter((_, i) => i % 3 === 0 || Math.abs(S.TL[i].sw) > 2);
+  const area = (lo, hi) => `M${pts.map(s => `${x(s.t).toFixed(1)},${y(lo(s)).toFixed(1)}`).join('L')} L${pts.slice().reverse().map(s => `${x(s.t).toFixed(1)},${y(hi(s)).toFixed(1)}`).join('L')} Z`;
+  const hc = colour(S.H.home.team_id), ac = colour(S.H.away.team_id);
+  let g = `<defs><clipPath id="revealed"><rect id="reveal" x="0" y="0" width="0" height="${H}"/></clipPath></defs>`;
+  const bands = `<path d="${area(() => 0, s => s.p[0])}" fill="${hc}"/><path d="${area(s => s.p[0], s => s.p[0] + s.p[1])}" fill="#a3aab3"/><path d="${area(s => s.p[0] + s.p[1], () => 1)}" fill="${ac}"/>`;
+  g += `<g opacity=".12">${bands}</g><g clip-path="url(#revealed)" opacity=".62">${bands}</g>`;
+  g += `<path d="M${pts.map(s => `${x(s.t).toFixed(1)},${(H - PAD - (s.g.knife_edge / 60) * (H - 2 * PAD)).toFixed(1)}`).join('L')}" fill="none" stroke="#e2452c" stroke-width="1.8" clip-path="url(#revealed)"/>`;
+  for (const m of [15, 30, 45, 60, 75, 90]) { const tt = m <= 45 ? m * 60 : S.h1 + (m - 45) * 60; g += `<line x1="${x(tt)}" y1="${PAD}" x2="${x(tt)}" y2="${H - PAD}" stroke="#10192b" stroke-opacity=".14"${m === 45 ? ' stroke-dasharray="3 3"' : ''}/><text x="${x(tt) + 4}" y="${H - PAD - 5}" fill="#4f5867" font-size="11" font-family="Instrument Sans, sans-serif" paint-order="stroke" stroke="#fff" stroke-width="3" stroke-linejoin="round">${m}'</text>`; }
+  S.TL.forEach(s => { if (s.xs == null) return; const ev = S.EV.find(e => e.event_id === s.e); const home = isHome(ev.team_id), goal = ev.outcome === 'goal'; const r = 2.2 + 5 * Math.sqrt(ev.shot.xg);
+    g += `<circle cx="${x(s.t).toFixed(1)}" cy="${home ? H - 8 : 8}" r="${r}" fill="${goal ? '#f0b400' : (home ? hc : ac)}" stroke="#fff" stroke-width="1.2"><title>${s.l} ${esc(playerOf(ev.player_id)?.name || '')}, ${goal ? 'goal' : 'shot'}, xG ${ev.shot.xg.toFixed(2)}</title></circle>`; });
+  g += `<line id="hoverline" x1="0" y1="0" x2="0" y2="${H}" stroke="#10192b" stroke-opacity=".35" stroke-dasharray="2 3" style="display:none"/>`;
+  g += `<line id="playhead" x1="0" y1="0" x2="0" y2="${H}" stroke="#10192b" stroke-width="1.6"/>`;
+  svg.innerHTML = g;
+  const at = e => { const r = svg.getBoundingClientRect(); return clamp(((e.clientX - r.left) / r.width) * S.endClock, 0, S.endClock); };
+  svg.onclick = e => seek(at(e));
+  svg.onmousemove = e => { const t = at(e), hl = $('hoverline'), xx = x(t); hl.style.display = ''; hl.setAttribute('x1', xx); hl.setAttribute('x2', xx);
+    const s = snapAt(t), tip = $('tip');
+    tip.innerHTML = `<b>${label(t)}, ${s.sc[0]}–${s.sc[1]}</b><div class="row2"><span>${S.H.home.short} ${(100 * s.p[0]).toFixed(0)}%</span><span>draw ${(100 * s.p[1]).toFixed(0)}%</span><span>${S.H.away.short} ${(100 * s.p[2]).toFixed(0)}%</span></div><div class="row2"><span>Next goal swings it ${s.g.knife_edge.toFixed(0)} pts</span></div>`;
+    tip.style.display = 'block'; place(tip, e); };
+  svg.onmouseleave = () => { $('hoverline').style.display = 'none'; hideTip(); };
+}
+function snapAt(t) { let lo = 0, hi = S.TL.length - 1; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (S.TL[mid].t <= t) lo = mid; else hi = mid - 1; } return S.TL[lo].t <= t ? S.TL[lo] : snap0(); }
+function renderPlayhead() { const W = S.riverW || 900, xx = (S.clock / S.endClock) * W; const ph = $('playhead'); if (!ph) return; ph.setAttribute('x1', xx); ph.setAttribute('x2', xx); $('reveal').setAttribute('width', xx); }
+let riverRO; addEventListener('resize', () => { clearTimeout(riverRO); riverRO = setTimeout(() => { if (S.H && Math.abs(($('river').clientWidth || 900) - S.riverW) > 40) { drawRiverBase(); renderPlayhead(); } }, 150); });
+function drawMoments() {
+  const box = $('moments');
+  box.innerHTML = `<span class="lab">Biggest moments</span>` + S.MO.map((m, i) => { const p = m.player ? m.player.name.split(' ').slice(-1)[0] : short(m.team_id); const what = m.type === 'shot' ? (m.outcome === 'goal' ? 'goal' : 'chance') : m.type === 'card' ? 'card' : m.type;
+    return `<button class="mo" data-i="${i}" title="Jump to this moment"><span class="m num">${m.label}</span><span>${esc(p)}, ${what}</span><span class="sw" style="color:${m.swing_pts > 0 ? 'var(--home)' : 'var(--away)'}">${fmt(m.swing_pts)}</span></button>`; }).join('');
+  box.querySelectorAll('.mo').forEach(b => b.onclick = () => { const m = S.MO[+b.dataset.i]; seek(m.clock_min * 60 + .5); why(m.event_id); const si = S.shots.findIndex(s => s.ev.event_id === m.event_id); select(si >= 0 ? si : null); });
+}
+function renderMomentsState() { $('moments').querySelectorAll('.mo').forEach(b => b.classList.toggle('future', S.MO[+b.dataset.i].clock_min * 60 > S.clock)); }
+
+// the four sparklines in the band: drawn once per match, revealed to the clock
+function drawSparks() {
+  const W = 240, H = 46, PAD = 3, T = S.endClock, x = t => (t / T) * W, hc = colour(S.H.home.team_id), ac = colour(S.H.away.team_id);
+  const pts = S.TL.filter((_, i) => i % 4 === 0 || Math.abs(S.TL[i].sw) > 2);
+  const line = (id, val, lo, hi, color, zeroLine) => {
+    const y = v => H - PAD - ((v - lo) / (hi - lo || 1)) * (H - 2 * PAD);
+    const d = `M${pts.map(s => `${x(s.t).toFixed(1)},${y(val(s)).toFixed(1)}`).join('L')}`;
+    let g = `<defs><clipPath id="${id}-c"><rect id="${id}-r" x="0" y="0" width="0" height="${H}"/></clipPath></defs>`;
+    if (zeroLine && lo < 0 && hi > 0) g += `<line x1="0" y1="${y(0)}" x2="${W}" y2="${y(0)}" stroke="#10192b" stroke-opacity=".18"/>`;
+    g += `<path d="${d}" fill="none" stroke="${color}" stroke-width="1.6" opacity=".2" vector-effect="non-scaling-stroke"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2" clip-path="url(#${id}-c)" vector-effect="non-scaling-stroke"/>`;
+    return g;
+  };
+  // knife-edge over the match
+  $('sp-g').innerHTML = line('sp-g', s => s.g.knife_edge, 0, Math.max(40, ...pts.map(s => s.g.knife_edge)), '#e2452c');
+  // theta of the side in front
+  const th = pts.map(leaderTheta), tm = Math.max(.2, ...th.map(Math.abs));
+  $('sp-th').innerHTML = line('sp-th', leaderTheta, -tm, tm, '#10192b', true);
+  // vega: who gains if it opens up; above the line is the home side
+  const vm = Math.max(5, ...pts.map(s => Math.abs(s.g.vega_home)));
+  const yv = v => H - PAD - ((v + vm) / (2 * vm)) * (H - 2 * PAD);
+  const areaD = `M${x(pts[0].t).toFixed(1)},${yv(0)} ${pts.map(s => `L${x(s.t).toFixed(1)},${yv(s.g.vega_home).toFixed(1)}`).join(' ')} L${x(pts[pts.length - 1].t).toFixed(1)},${yv(0)} Z`;
+  $('sp-ve').innerHTML = `<defs><clipPath id="sp-ve-c"><rect id="sp-ve-r" x="0" y="0" width="0" height="${H}"/></clipPath><clipPath id="sp-ve-up"><rect x="0" y="0" width="${W}" height="${yv(0)}"/></clipPath><clipPath id="sp-ve-dn"><rect x="0" y="${yv(0)}" width="${W}" height="${H}"/></clipPath></defs>
+    <g opacity=".18"><path d="${areaD}" fill="${hc}" clip-path="url(#sp-ve-up)"/><path d="${areaD}" fill="${ac}" clip-path="url(#sp-ve-dn)"/></g>
+    <g clip-path="url(#sp-ve-c)"><path d="${areaD}" fill="${hc}" clip-path="url(#sp-ve-up)" opacity=".75"/><path d="${areaD}" fill="${ac}" clip-path="url(#sp-ve-dn)" opacity=".75"/></g>
+    <line x1="0" y1="${yv(0)}" x2="${W}" y2="${yv(0)}" stroke="#10192b" stroke-opacity=".25"/>`;
+  // delta: one bar per shot or card
+  const keys = S.TL.map((s, i) => [s, S.EV[i]]).filter(([s, e]) => e.type === 'shot' || e.type === 'card'), dm = Math.max(5, ...keys.map(([s]) => Math.abs(s.sw)));
+  const yd = v => H / 2 - (v / dm) * (H / 2 - PAD);
+  const bars = keys.map(([s]) => `<rect x="${(x(s.t) - 2).toFixed(1)}" y="${Math.min(yd(0), yd(s.sw)).toFixed(1)}" width="4" height="${Math.max(1, Math.abs(yd(s.sw) - yd(0))).toFixed(1)}" fill="${s.sw >= 0 ? hc : ac}"/>`).join('');
+  $('sp-d').innerHTML = `<defs><clipPath id="sp-d-c"><rect id="sp-d-r" x="0" y="0" width="0" height="${H}"/></clipPath></defs><line x1="0" y1="${H / 2}" x2="${W}" y2="${H / 2}" stroke="#10192b" stroke-opacity=".18"/><g opacity=".2">${bars}</g><g clip-path="url(#sp-d-c)">${bars}</g>`;
+}
+function renderSparkReveal() { const w = (S.clock / S.endClock) * 240; for (const id of ['sp-g-r', 'sp-th-r', 'sp-ve-r', 'sp-d-r']) $(id)?.setAttribute('width', w.toFixed(1)); }
+
+function renderGreeks() {
+  const s = snap(), g = s.g, H = S.H;
+  const k = g.knife_edge, f = clamp(k / 50, 0, 1), ang = -90 + f * 180;
+  const hs = g.next_goal_swing_home, as = g.next_goal_swing_away;
+  $('gauge').innerHTML = `<defs><linearGradient id="gg"><stop offset="0" stop-color="#9aa3ae"/><stop offset=".5" stop-color="#f0b400"/><stop offset="1" stop-color="#e2452c"/></linearGradient></defs>
+    <path d="M22 96 A78 78 0 0 1 178 96" fill="none" stroke="#ebe4d2" stroke-width="16" stroke-linecap="round"/>
+    <path d="M22 96 A78 78 0 0 1 178 96" fill="none" stroke="url(#gg)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(f * 245).toFixed(1)} 400" style="transition:stroke-dasharray .4s"/>
+    <g style="transform-origin:100px 96px;transform:rotate(${ang.toFixed(1)}deg);transition:transform .4s"><line x1="100" y1="92" x2="100" y2="30" stroke="#10192b" stroke-width="3.5" stroke-linecap="round"/></g><circle cx="100" cy="96" r="7" fill="#10192b"/>`;
+  $('g-val').textContent = `${k.toFixed(1)} pts`; $('hud-k').textContent = `${k.toFixed(0)} pts`;
+  $('g-lab').textContent = `${H.home.short} scoring now swings it ${hs.toFixed(0)} pts, ${H.away.short} scoring ${as.toFixed(0)}.`;
+  if (S.lastKey) { const { ev, tl } = S.lastKey; const p = playerOf(ev.player_id); $('d-v').textContent = `${fmt(tl.sw)} pts`; $('d-s').textContent = `${tl.l} ${ev.type === 'card' ? ev.card.colour.replace('_', ' ') + ' card' : outcomeText(ev.outcome).toLowerCase()}, ${p ? p.name : ''} (${short(ev.team_id)}). The chance was worth ${Math.abs(tl.xs || 0).toFixed(1)} pts before it was taken.`; }
+  else { $('d-v').textContent = '—'; $('d-s').textContent = 'How far the last shot or card moved the match. Nothing yet.'; }
+  const lead = s.sc[0] - s.sc[1];
+  if (lead === 0) { const th = Math.max(g.theta_home, g.theta_away); $('th-v').textContent = `${fmt(th, 2)} pts/min`; $('th-s').textContent = 'Level: every quiet minute nudges the draw up and both sides lose a little.'; }
+  else { const leader = lead > 0 ? H.home.short : H.away.short, th = lead > 0 ? g.theta_home : g.theta_away; $('th-v').textContent = `${fmt(th, 2)} pts/min`; $('th-s').textContent = `Time favours ${leader}: that much a minute just by holding on.`; }
+  const chaos = g.vega_home > 0 ? H.home.short : H.away.short, calm = g.vega_home > 0 ? H.away.short : H.home.short, v = Math.abs(g.vega_home);
+  $('ve-v').textContent = `${fmt(v)} pts ${chaos}`; $('ve-s').textContent = v < 3 ? 'An open game barely changes the picture.' : `If the match opens up ${chaos} gain that much; ${calm} want it slow.`;
+}
+function buildWhatIf() {
+  const H = S.H;
+  const opts = [[`${H.home.short} score`, { home_goal: 1 }], [`${H.away.short} score`, { away_goal: 1 }], [`${H.home.short} red card`, { red_home: 1 }], [`${H.away.short} red card`, { red_away: 1 }], ['Game opens up', { chaos: 1.3 }]];
+  $('whatif').innerHTML = `<span class="lab">What if, right now:</span>` + opts.map(([l, q]) => `<button class="btn" data-q='${JSON.stringify(q)}'>${esc(l)}</button>`).join('');
+  $('wres').style.display = 'none';
+  $('whatif').querySelectorAll('button').forEach(b => b.onclick = async () => {
+    $('whatif').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    const q = JSON.parse(b.dataset.q); const r = await (await fetch(`/matches/${$('match').value}/scenario?` + new URLSearchParams({ minute: (S.clock / 60).toFixed(2), ...q }))).json();
+    const res = r.result, base = r.base, box = $('wres'); box.style.display = 'block';
+    const rows = [[S.H.home.short, base.p_home, 100 * res.p_home, colour(S.H.home.team_id)], ['draw', base.p_draw, 100 * res.p_draw, '#a3aab3'], [S.H.away.short, base.p_away, 100 * res.p_away, colour(S.H.away.team_id)]];
+    box.innerHTML = `<div class="big">${esc(b.textContent)} at ${label(S.clock)}: Delta ${fmt(r.swing_pts)} pts on ${S.H.home.short}'s chances</div>
+      <div class="cmp">${rows.map(([n, b0, a1, c]) => `<span>${esc(n)}</span><div class="b"><i class="ghost" style="width:${b0.toFixed(1)}%;background:${c}"></i><i class="after" style="width:0%;background:${c}"></i></div><span class="r">${b0.toFixed(0)}% <b>→ ${a1.toFixed(0)}%</b></span>`).join('')}</div>
+      <div class="fine">Knife-edge after: ${res.greeks.knife_edge.toFixed(1)} pts (now ${base.knife_edge.toFixed(1)}). Faint bars are now, solid bars are after.</div>`;
+    requestAnimationFrame(() => box.querySelectorAll('.after').forEach((el, i) => el.style.width = rows[i][2].toFixed(1) + '%'));
+  });
+}
+function renderPressure() {
+  const m = S.idx ? S.MIN.filter(x => x.elapsed_min <= S.clock / 60).slice(-1)[0] : S.MIN[0]; if (!m) return;
+  const th = m.intensity_home.recent_tilt, hx = m.intensity_home.recent_xg, ax = m.intensity_away.recent_xg, hc = colour(S.H.home.team_id), ac = colour(S.H.away.team_id);
+  $('tilt-home').style.width = (100 * th).toFixed(0) + '%'; $('tilt-home').style.background = hc;
+  $('tilt-away').style.width = (100 * (1 - th)).toFixed(0) + '%'; $('tilt-away').style.background = ac;
+  $('tilt-l').textContent = `${S.H.home.short} ${(100 * th).toFixed(0)}% of final-third touches, ${hx.toFixed(2)} xG`; $('tilt-r').textContent = `${ax.toFixed(2)} xG, ${(100 * (1 - th)).toFixed(0)}% ${S.H.away.short}`;
+  const st = {};
+  for (const tid of [S.H.home.team_id, S.H.away.team_id]) st[tid] = { shots: 0, sot: 0, xg: 0, passes: 0, comp: 0, press: 0, sprints: 0 };
+  for (let i = 0; i < S.idx; i++) { const e = S.EV[i], t = st[e.team_id]; if (!t) continue;
+    if (e.type === 'shot') { t.shots++; t.xg += e.shot.xg; if (e.outcome === 'goal' || e.outcome === 'saved') t.sot++; }
+    else if (e.type === 'pass') { t.passes++; if (e.outcome === 'success') t.comp++; }
+    else if (e.type === 'pressure') t.press++;
+    else if (e.type === 'carry' && e.carry.sprint) t.sprints++; }
+  const h = st[S.H.home.team_id], a = st[S.H.away.team_id];
+  const pc = t => t.passes ? 100 * t.comp / t.passes : 0;
+  const rows = [['Shots', h.shots, a.shots], ['On target', h.sot, a.sot], ['xG', h.xg, a.xg, h.xg.toFixed(2), a.xg.toFixed(2)], ['Pass completion', pc(h), pc(a), h.passes ? pc(h).toFixed(0) + '%' : '–', a.passes ? pc(a).toFixed(0) + '%' : '–'], ['Pressures', h.press, a.press], ['Sprints', h.sprints, a.sprints]];
+  $('stats').innerHTML = rows.map(([k, hv, av, hs, as]) => { const tot = hv + av || 1; return `<div class="stat"><span class="hv">${hs ?? hv}</span><div class="mid"><div class="k">${k}</div><div class="bars"><div><i style="width:${(100 * hv / tot).toFixed(0)}%;background:${hc}"></i></div><div><i style="width:${(100 * av / tot).toFixed(0)}%;background:${ac}"></i></div></div></div><span class="av">${as ?? av}</span></div>`; }).join('');
+}
+const KIND = { swing: ['Swing', 'var(--goal)'], knife_edge: ['Knife-edge', 'var(--edge)'], big_chance: ['Big chance', 'var(--ink)'], recap: ['Recap', 'var(--ink-3)'], bench_prompt: ['Bench prompt', 'var(--ok)'] };
+function renderCue() {
+  let i = -1; for (let k = 0; k < S.CUES.length; k++) if (S.CUES[k].t_in_s <= S.clock) i = k;
+  if (i === S.cueIdx) return; S.cueIdx = i;
+  document.querySelectorAll('#cues .c').forEach(el => el.classList.toggle('now', +el.dataset.i === i));
+  const box = $('cue');
+  if (i < 0) { box.className = 'cue idle'; box.style.removeProperty('--cue-c'); $('cue-kind').textContent = ''; $('cue-hl').textContent = 'Overlay cues appear here as the match plays'; $('cue-bd').textContent = ''; $('cue-meta').textContent = ''; $('cue-rej').innerHTML = ''; return; }
+  const c = S.CUES[i], [kn, kc] = KIND[c.kind] || [c.kind.replace('_', ' '), 'var(--goal)']; box.className = 'cue'; box.style.setProperty('--cue-c', kc);
+  $('cue-kind').textContent = `${label(c.t_in_s)}, ${kn.toLowerCase()}${c.confidence ? `, confidence ${Math.round(100 * c.confidence)}%` : ''}`;
+  $('cue-hl').textContent = c.headline; $('cue-bd').textContent = c.body;
+  $('cue-meta').innerHTML = `<b class="${c.verifier.passed ? '' : 'bad'}">${c.verifier.passed ? 'Verified' : 'Rejected'}</b>: ${esc(c.verifier.checks.join(', '))}. Evidence: events ${c.evidence_event_ids.join(', ')}. Written by ${c.source === 'template' ? 'the template' : 'the model'}.`;
+  $('cue-rej').innerHTML = c.verifier.rejected_drafts.map(d => `<div class="rejected"><s>${esc(d.headline)} — ${esc(d.body)}</s><div class="reason">Blocked: ${esc(d.rejections.join('; '))}</div></div>`).join('');
+}
+async function why(eid) {
+  hideTip();
+  const d = await (await fetch(`/matches/${$('match').value}/why/${eid}`)).json();
+  const box = $('why'); box.style.display = 'block';
+  const dec = d.decomposition_pts, mx = Math.max(1, ...Object.values(dec).map(Math.abs));
+  const names = { time: 'Time decay', momentum: 'Momentum', discipline: 'Discipline', score: 'Score' };
+  const ih = d.intensity_after.home, ia = d.intensity_after.away;
+  box.innerHTML = `<div class="head">${d.snapshot.label} ${d.event.type === 'shot' ? outcomeText(d.event.outcome).toLowerCase() : esc(d.event.type)}${d.player ? ', ' + esc(d.player.name) : ''}: Delta ${fmt(d.snapshot.swing_pts)} pts on ${S.H.home.short}'s win probability</div>
+    <div class="bars">${Object.entries(dec).map(([k, v]) => `<div><span>${names[k]}</span><i class="${v < 0 ? 'neg' : ''}" style="width:${(100 * Math.abs(v) / mx).toFixed(0)}%"></i><span>${fmt(v)}</span></div>`).join('')}</div>
+    <div class="fine">Expected goals left: ${S.H.home.short} ${ih.lam_remaining.toFixed(2)} (score ×${ih.score_mult}, men ×${ih.men_mult}, momentum ×${ih.momentum_mult}, tilt ×${ih.tilt_mult}), ${S.H.away.short} ${ia.lam_remaining.toFixed(2)} (×${ia.score_mult}, ×${ia.men_mult}, ×${ia.momentum_mult}, ×${ia.tilt_mult}). Evidence: events ${d.evidence_event_ids.join(', ')}.</div>`;
+  box.scrollIntoView({ block: 'nearest', behavior: RM ? 'auto' : 'smooth' });
+}
+function playerCard(pid) {
+  const p = playerOf(pid); if (!p) return;
+  let shots = 0, xg = 0, goals = 0, dist = 0, top = 0, sprints = 0, worth = 0, carries = 0, delta = 0;
+  for (let i = 0; i < S.idx; i++) { const e = S.EV[i]; if (e.player_id !== pid) continue;
+    if (e.type === 'shot') { shots++; xg += e.shot.xg; goals += e.outcome === 'goal'; worth += Math.abs(S.TL[i].xs || 0); delta += S.TL[i].sw; }
+    if (e.type === 'carry') { carries++; dist += e.carry.distance_m; top = Math.max(top, e.carry.speed_ms); sprints += e.carry.sprint ? 1 : 0; } }
+  const box = $('player'); box.style.display = 'block';
+  box.innerHTML = `<div class="n">${esc(p.name)}<span>${p.position}, #${p.shirt}, ${short(p.team_id)}</span></div>
+    <div class="grid"><div>Shots<b>${shots}</b></div><div>Goals<b>${goals}</b></div><div>xG<b>${xg.toFixed(2)}</b></div><div>Delta from shots<b>${fmt(delta)} pts</b></div><div>Chances worth<b>${worth.toFixed(1)} pts</b></div><div>Top speed<b>${(3.6 * top).toFixed(1)} km/h</b></div><div>Sprints<b>${sprints}</b></div><div>Carried<b>${dist.toFixed(0)} m</b></div></div>`;
+}
+
+// ---------- wiring
+$('play').onclick = () => S.playing ? stop() : play();
+$('speeds').querySelectorAll('button').forEach(b => b.onclick = () => { S.speed = +b.dataset.s; $('speeds').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); });
+$('scrub').oninput = e => seek(+e.target.value);
+$('match').onchange = e => loadMatch(e.target.value);
+$('audience').onchange = loadCues; $('lang').onchange = loadCues;
+$('inject').onclick = () => { S.inject = !S.inject; $('inject').classList.toggle('on', S.inject); $('inject').textContent = S.inject ? 'Bad narrator on: watch the Verifier' : 'Simulate a bad narrator'; loadCues(); };
+$('cams').querySelectorAll('button').forEach(b => b.onclick = () => flyTo(b.dataset.cam));
+$('layers').querySelectorAll('button').forEach(b => b.onclick = () => { S.layers[b.dataset.layer] = !S.layers[b.dataset.layer]; b.classList.toggle('on', S.layers[b.dataset.layer]); S.dirty = true; });
+$('filters').querySelectorAll('button').forEach(b => b.onclick = () => { $('filters').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); $('feed').className = 'feed' + (b.dataset.f ? ' f-' + b.dataset.f : ''); });
+document.addEventListener('keydown', e => { if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) return;
+  if (e.key === ' ') { e.preventDefault(); $('play').click(); } if (e.key === 'ArrowRight') seek(S.clock + (e.shiftKey ? 300 : 60)); if (e.key === 'ArrowLeft') seek(S.clock - (e.shiftKey ? 300 : 60));
+  const cam = { 1: 'broadcast', 2: 'overhead', 3: 'homeend', 4: 'awayend' }[e.key]; if (cam) flyTo(cam); });
+
+await init3D(); window.KE = { S, get V() { return V; } };
+requestAnimationFrame(frame);
+loadMatches();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knifeedge"
+version = "0.1.0"
+description = "Knife-Edge: live football match intelligence that measures how much every moment matters (Delta, Gamma, Theta, Vega) and explains it."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Adhitya Suppiah" }]
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pydantic>=2.5",
+  "jsonschema>=4.20",
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27", "matplotlib>=3.8"]
+mcp = ["mcp>=1.2"]
+azure = [
+  # Microsoft Agent Framework (Python) + Foundry. Pin after `pip index versions agent-framework`.
+  "agent-framework",
+  "azure-identity>=1.17",
+  "azure-monitor-opentelemetry>=1.6",
+]
+
+[project.scripts]
+knife-edge = "knifeedge.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["knifeedge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

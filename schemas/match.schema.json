@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knife-edge.dev/schemas/match.schema.json",
+  "title": "Knife-Edge synthetic match header",
+  "type": "object",
+  "required": ["match_id", "seed", "competition", "home", "away", "lineups", "score", "periods", "provenance"],
+  "properties": {
+    "match_id": { "type": "string" },
+    "seed": { "type": "integer" },
+    "competition": { "type": "string", "const": "Knife-Edge Synthetic League" },
+    "matchday": { "type": "integer" },
+    "kickoff_iso": { "type": "string" },
+    "home": { "$ref": "#/$defs/team" },
+    "away": { "$ref": "#/$defs/team" },
+    "lineups": {
+      "type": "object",
+      "additionalProperties": { "type": "array", "items": { "$ref": "#/$defs/player" } }
+    },
+    "score": { "type": "object", "properties": { "home": { "type": "integer" }, "away": { "type": "integer" } } },
+    "periods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "period": { "type": "integer" },
+          "regulation_s": { "type": "integer" },
+          "stoppage_s": { "type": "integer" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["generator", "statement"],
+      "properties": {
+        "generator": { "type": "string" },
+        "version": { "type": "string" },
+        "statement": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "team": {
+      "type": "object",
+      "required": ["team_id", "name", "short"],
+      "properties": {
+        "team_id": { "type": "string" },
+        "name": { "type": "string" },
+        "short": { "type": "string", "minLength": 2, "maxLength": 4 },
+        "colour": { "type": "string" },
+        "formation": { "type": "string" }
+      }
+    },
+    "player": {
+      "type": "object",
+      "required": ["player_id", "name", "position", "shirt"],
+      "properties": {
+        "player_id": { "type": "string" },
+        "name": { "type": "string" },
+        "position": { "type": "string" },
+        "shirt": { "type": "integer" },
+        "starter": { "type": "boolean" }
+      }
+    }
+  }
+}

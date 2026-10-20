@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knife-edge.dev/schemas/overlay_cue.schema.json",
+  "title": "Knife-Edge overlay cue",
+  "description": "A timed, machine-readable cue a rendering partner can draw on a live feed. Every number in `headline`/`body` must be traceable to `facts`; every claim must be traceable to `evidence_event_ids`.",
+  "type": "object",
+  "required": [
+    "cue_id",
+    "match_id",
+    "kind",
+    "audience",
+    "lang",
+    "t_in_s",
+    "t_out_s",
+    "priority",
+    "headline",
+    "body",
+    "facts",
+    "evidence_event_ids",
+    "greeks",
+    "source"
+  ],
+  "properties": {
+    "cue_id": {
+      "type": "string"
+    },
+    "match_id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "swing",
+        "big_chance",
+        "knife_edge",
+        "theta",
+        "vega",
+        "momentum",
+        "milestone",
+        "recap",
+        "bench_prompt"
+      ]
+    },
+    "audience": {
+      "type": "string",
+      "enum": [
+        "casual",
+        "analyst",
+        "bench",
+        "player_focus"
+      ]
+    },
+    "lang": {
+      "type": "string",
+      "enum": [
+        "en",
+        "es",
+        "ta"
+      ]
+    },
+    "t_in_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "t_out_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "headline": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "body": {
+      "type": "string",
+      "maxLength": 320
+    },
+    "facts": {
+      "type": "object",
+      "description": "The only numbers the text is allowed to contain, keyed by name."
+    },
+    "evidence_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "greeks": {
+      "type": "object",
+      "description": "Engine readings at t_in, all in probability points (0-100) as returned by Greeks.points().",
+      "properties": {
+        "p_home": {
+          "type": "number"
+        },
+        "p_draw": {
+          "type": "number"
+        },
+        "p_away": {
+          "type": "number"
+        },
+        "delta_home_goal": {
+          "type": "number"
+        },
+        "delta_away_goal": {
+          "type": "number"
+        },
+        "gamma": {
+          "type": "number"
+        },
+        "knife_edge": {
+          "type": "number"
+        },
+        "theta_home": {
+          "type": "number"
+        },
+        "theta_away": {
+          "type": "number"
+        },
+        "vega_home": {
+          "type": "number"
+        },
+        "vega_away": {
+          "type": "number"
+        },
+        "next_goal_swing_home": {
+          "type": "number"
+        },
+        "next_goal_swing_away": {
+          "type": "number"
+        }
+      }
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "action": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Bench prompts only: the suggested adjustment."
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "llm",
+        "template",
+        "llm_retry"
+      ]
+    },
+    "verifier": {
+      "type": "object",
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rejections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rejected_drafts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "headline": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rejections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

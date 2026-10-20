@@ -1,0 +1,3852 @@
+{
+  "match_id": "KE-000042",
+  "seed": 42,
+  "pre_match": {
+    "lam_home_90": 1.0271,
+    "lam_away_90": 1.4637
+  },
+  "strengths": {
+    "T16": {
+      "attack": -0.2878,
+      "defence": 0.0971,
+      "style": "balanced"
+    },
+    "T11": {
+      "attack": 0.1885,
+      "defence": -0.0008,
+      "style": "low_block_counter"
+    }
+  },
+  "regimes": [
+    {
+      "team_id": "T16",
+      "regime": "open",
+      "start_min": 0,
+      "end_min": 35
+    },
+    {
+      "team_id": "T11",
+      "regime": "low_block_counter",
+      "start_min": 0,
+      "end_min": 40
+    },
+    {
+      "team_id": "T16",
+      "regime": "game_management",
+      "start_min": 35,
+      "end_min": 65
+    },
+    {
+      "team_id": "T11",
+      "regime": "open",
+      "start_min": 40,
+      "end_min": 45
+    },
+    {
+      "team_id": "T11",
+      "regime": "low_block_counter",
+      "start_min": 45,
+      "end_min": 60
+    },
+    {
+      "team_id": "T11",
+      "regime": "high_press",
+      "start_min": 60,
+      "end_min": 65
+    },
+    {
+      "team_id": "T16",
+      "regime": "high_press",
+      "start_min": 65,
+      "end_min": 93
+    },
+    {
+      "team_id": "T11",
+      "regime": "low_block_counter",
+      "start_min": 65,
+      "end_min": 93
+    }
+  ],
+  "intensity_per_min": [
+    {
+      "minute": 0,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 1,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 2,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 3,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 4,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 5,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 6,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 7,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 8,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 9,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 10,
+      "period": 1,
+      "mu_home": 0.0117,
+      "mu_away": 0.01789,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "minute": 11,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 12,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 13,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 14,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 15,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 16,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 17,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 18,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 19,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 20,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 21,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 22,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 23,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 24,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 25,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 26,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 27,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 28,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 29,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 30,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 31,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 32,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 33,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 34,
+      "period": 1,
+      "mu_home": 0.01053,
+      "mu_away": 0.02183,
+      "regime_home": "open",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.25,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 35,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 36,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 37,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 38,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 39,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 40,
+      "period": 1,
+      "mu_home": 0.00924,
+      "mu_away": 0.02108,
+      "regime_home": "game_management",
+      "regime_away": "open",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.25,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 41,
+      "period": 1,
+      "mu_home": 0.00924,
+      "mu_away": 0.02108,
+      "regime_home": "game_management",
+      "regime_away": "open",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.25,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 42,
+      "period": 1,
+      "mu_home": 0.00924,
+      "mu_away": 0.02108,
+      "regime_home": "game_management",
+      "regime_away": "open",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.25,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 43,
+      "period": 1,
+      "mu_home": 0.00924,
+      "mu_away": 0.02108,
+      "regime_home": "game_management",
+      "regime_away": "open",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.25,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 44,
+      "period": 1,
+      "mu_home": 0.00924,
+      "mu_away": 0.02108,
+      "regime_home": "game_management",
+      "regime_away": "open",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.25,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.25,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 45,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 46,
+      "period": 1,
+      "mu_home": 0.00606,
+      "mu_away": 0.01484,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 0.9,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.22,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "minute": 47,
+      "period": 1,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 45,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 46,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 47,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 48,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 49,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 50,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 51,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 52,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 53,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 54,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 55,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 56,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 57,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 58,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 59,
+      "period": 2,
+      "mu_home": 0.00674,
+      "mu_away": 0.01216,
+      "regime_home": "game_management",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 60,
+      "period": 2,
+      "mu_home": 0.00863,
+      "mu_away": 0.01521,
+      "regime_home": "game_management",
+      "regime_away": "high_press",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.05,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 61,
+      "period": 2,
+      "mu_home": 0.00863,
+      "mu_away": 0.01521,
+      "regime_home": "game_management",
+      "regime_away": "high_press",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.05,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 62,
+      "period": 2,
+      "mu_home": 0.00863,
+      "mu_away": 0.01521,
+      "regime_home": "game_management",
+      "regime_away": "high_press",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.05,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 1.0,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 63,
+      "period": 2,
+      "mu_home": 0.01122,
+      "mu_away": 0.00973,
+      "regime_home": "game_management",
+      "regime_away": "high_press",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.05,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 64,
+      "period": 2,
+      "mu_home": 0.01122,
+      "mu_away": 0.00973,
+      "regime_home": "game_management",
+      "regime_away": "high_press",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 0.72,
+        "regime_opp": 1.05,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.85,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 65,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 66,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 67,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 68,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 69,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 70,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 71,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 72,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 73,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 74,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 75,
+      "period": 2,
+      "mu_home": 0.01338,
+      "mu_away": 0.00962,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 76,
+      "period": 2,
+      "mu_home": 0.01347,
+      "mu_away": 0.00968,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0066666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0066666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 77,
+      "period": 2,
+      "mu_home": 0.01356,
+      "mu_away": 0.00975,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0133333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0133333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 78,
+      "period": 2,
+      "mu_home": 0.01365,
+      "mu_away": 0.00981,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.02,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.02,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 79,
+      "period": 2,
+      "mu_home": 0.01374,
+      "mu_away": 0.00987,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0266666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0266666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 80,
+      "period": 2,
+      "mu_home": 0.01383,
+      "mu_away": 0.00994,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0333333333333334,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0333333333333334,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 81,
+      "period": 2,
+      "mu_home": 0.01392,
+      "mu_away": 0.01,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.04,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.04,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 81,
+      "period": 2,
+      "mu_home": 0.01392,
+      "mu_away": 0.01,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.04,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.04,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 81,
+      "period": 2,
+      "mu_home": 0.01392,
+      "mu_away": 0.01,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.04,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.04,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 81,
+      "period": 2,
+      "mu_home": 0.01392,
+      "mu_away": 0.01,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.04,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.04,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 82,
+      "period": 2,
+      "mu_home": 0.01401,
+      "mu_away": 0.01007,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0466666666666666,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0466666666666666,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 83,
+      "period": 2,
+      "mu_home": 0.01409,
+      "mu_away": 0.01013,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0533333333333332,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0533333333333332,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 84,
+      "period": 2,
+      "mu_home": 0.01418,
+      "mu_away": 0.01019,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.06,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.06,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 85,
+      "period": 2,
+      "mu_home": 0.01427,
+      "mu_away": 0.01026,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0666666666666667,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0666666666666667,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 86,
+      "period": 2,
+      "mu_home": 0.01436,
+      "mu_away": 0.01032,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0733333333333333,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0733333333333333,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 87,
+      "period": 2,
+      "mu_home": 0.01445,
+      "mu_away": 0.01039,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.08,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.08,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 88,
+      "period": 2,
+      "mu_home": 0.01454,
+      "mu_away": 0.01045,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0866666666666667,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0866666666666667,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 89,
+      "period": 2,
+      "mu_home": 0.01463,
+      "mu_away": 0.01051,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.0933333333333333,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.0933333333333333,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 90,
+      "period": 2,
+      "mu_home": 0.01472,
+      "mu_away": 0.01058,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.1,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.1,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 91,
+      "period": 2,
+      "mu_home": 0.01481,
+      "mu_away": 0.01064,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.1066666666666667,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.1066666666666667,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 92,
+      "period": 2,
+      "mu_home": 0.0149,
+      "mu_away": 0.01071,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.1133333333333333,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.1133333333333333,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "minute": 93,
+      "period": 2,
+      "mu_home": 0.01499,
+      "mu_away": 0.01077,
+      "regime_home": "high_press",
+      "regime_away": "low_block_counter",
+      "parts_home": {
+        "score": 1.0,
+        "men": 1.3,
+        "late": 1.12,
+        "regime_own": 1.1,
+        "regime_opp": 0.82,
+        "base_per_90": 1.0270500157461986
+      },
+      "parts_away": {
+        "score": 1.0,
+        "men": 0.64,
+        "late": 1.12,
+        "regime_own": 0.88,
+        "regime_opp": 1.05,
+        "base_per_90": 1.463674437055262
+      },
+      "score": [
+        1,
+        1
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "event_id": 71,
+      "hidden_xg": 0.1619,
+      "shooter_finishing": 0.556
+    },
+    {
+      "event_id": 258,
+      "hidden_xg": 0.0929,
+      "shooter_finishing": 0.25
+    },
+    {
+      "event_id": 406,
+      "hidden_xg": 0.0451,
+      "shooter_finishing": 0.489
+    },
+    {
+      "event_id": 543,
+      "hidden_xg": 0.1429,
+      "shooter_finishing": 0.793
+    },
+    {
+      "event_id": 554,
+      "hidden_xg": 0.3601,
+      "shooter_finishing": 0.704
+    },
+    {
+      "event_id": 578,
+      "hidden_xg": 0.3561,
+      "shooter_finishing": 0.704
+    },
+    {
+      "event_id": 768,
+      "hidden_xg": 0.0868,
+      "shooter_finishing": 0.704
+    },
+    {
+      "event_id": 1118,
+      "hidden_xg": 0.1,
+      "shooter_finishing": 0.306
+    },
+    {
+      "event_id": 1160,
+      "hidden_xg": 0.0735,
+      "shooter_finishing": 0.704
+    },
+    {
+      "event_id": 1314,
+      "hidden_xg": 0.1722,
+      "shooter_finishing": 0.556
+    },
+    {
+      "event_id": 1609,
+      "hidden_xg": 0.0606,
+      "shooter_finishing": 0.489
+    },
+    {
+      "event_id": 1705,
+      "hidden_xg": 0.6127,
+      "shooter_finishing": 0.489
+    },
+    {
+      "event_id": 1745,
+      "hidden_xg": 0.1541,
+      "shooter_finishing": 0.227
+    },
+    {
+      "event_id": 2020,
+      "hidden_xg": 0.1078,
+      "shooter_finishing": 0.227
+    },
+    {
+      "event_id": 2148,
+      "hidden_xg": 0.0157,
+      "shooter_finishing": 0.782
+    },
+    {
+      "event_id": 2177,
+      "hidden_xg": 0.046,
+      "shooter_finishing": 0.475
+    }
+  ],
+  "player_physical": {
+    "T16": {
+      "distance_m": {
+        "T16P01": 188.4,
+        "T16P02": 173.9,
+        "T16P03": 402.1,
+        "T16P04": 169.9,
+        "T16P05": 166.3,
+        "T16P06": 294.0,
+        "T16P07": 181.7,
+        "T16P08": 92.8,
+        "T16P09": 75.5,
+        "T16P10": 17.2,
+        "T16P11": 96.6,
+        "T16P12": 0.0,
+        "T16P13": 0.0,
+        "T16P14": 0.0,
+        "T16P15": 16.3,
+        "T16P16": 0.0,
+        "T16P17": 0.0,
+        "T16P18": 22.4
+      },
+      "top_speed_ms": {
+        "T16P01": 7.44,
+        "T16P02": 8.81,
+        "T16P03": 8.06,
+        "T16P04": 7.76,
+        "T16P05": 8.48,
+        "T16P06": 7.78,
+        "T16P07": 7.7,
+        "T16P08": 7.1,
+        "T16P09": 8.28,
+        "T16P10": 7.94,
+        "T16P11": 7.73,
+        "T16P12": 0.0,
+        "T16P13": 0.0,
+        "T16P14": 0.0,
+        "T16P15": 8.06,
+        "T16P16": 0.0,
+        "T16P17": 0.0,
+        "T16P18": 7.93
+      }
+    },
+    "T11": {
+      "distance_m": {
+        "T11P01": 94.1,
+        "T11P02": 74.9,
+        "T11P03": 157.7,
+        "T11P04": 107.0,
+        "T11P05": 124.1,
+        "T11P06": 193.1,
+        "T11P07": 166.0,
+        "T11P08": 115.2,
+        "T11P09": 147.9,
+        "T11P10": 88.0,
+        "T11P11": 72.7,
+        "T11P12": 0.0,
+        "T11P13": 21.9,
+        "T11P14": 0.0,
+        "T11P15": 17.7,
+        "T11P16": 40.4,
+        "T11P17": 0.0,
+        "T11P18": 0.0
+      },
+      "top_speed_ms": {
+        "T11P01": 8.71,
+        "T11P02": 8.33,
+        "T11P03": 8.58,
+        "T11P04": 7.58,
+        "T11P05": 8.16,
+        "T11P06": 8.03,
+        "T11P07": 8.14,
+        "T11P08": 7.88,
+        "T11P09": 8.47,
+        "T11P10": 7.65,
+        "T11P11": 8.33,
+        "T11P12": 0.0,
+        "T11P13": 6.16,
+        "T11P14": 0.0,
+        "T11P15": 5.97,
+        "T11P16": 8.43,
+        "T11P17": 0.0,
+        "T11P18": 0.0
+      }
+    }
+  }
+}

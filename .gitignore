@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+
+# Generated data (keep data/sample/ committed)
+data/*
+!data/sample/
+!data/sample/**
+
+# Local env / secrets — never commit keys; use managed identity on Azure
+.env
+.env.*
+*.pem
+*.key
+
+# Azure Developer CLI
+.azure/
+
+# OS / editor
+.DS_Store
+.idea/
+*.swp
