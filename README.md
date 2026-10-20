@@ -50,6 +50,8 @@ pytest
 * **Overlay cue** lower-third that fires at each cue's `t_in`, the cue list, and **Simulate a bad narrator**, which swaps in a model that invents numbers so you can watch the Verifier block two drafts and fall back to the template.
 * **Pressure** — last-10-minute field tilt with recent xG, two-sided team stat bars, the filterable match feed (goals / shots / cards / subs) and player cards (shots, Delta from shots, chances worth, top speed, sprints).
 
+**No-setup demo:** `python scripts/build_static.py` (with `knife-edge serve` running) writes `dist/knife-edge-static.html`, a single file with the match data, every cue in every language, every "why it moved" panel and the what-if answers precomputed by the engine, plus Three.js and the fonts inlined. It opens from disk in any modern browser with nothing installed.
+
 Template mode needs no model; set `FOUNDRY_ENDPOINT` to switch the Narrator and Localiser to a Foundry-hosted model (see `docs/azure.md`).
 
 ## Architecture

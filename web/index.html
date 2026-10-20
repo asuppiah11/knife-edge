@@ -388,7 +388,7 @@
 <script type="module">
 const $ = id => document.getElementById(id);
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const S = { H: null, EV: [], TL: [], MIN: [], CUES: [], MO: [], clock: 0, idx: 0, playing: false, speed: 30, shots: [], seq: [], ball: null, ballTeam: null, ballPlayer: null, lastKey: null, cueIdx: -1, inject: false, endClock: 5700, lastTs: 0, teamColour: {}, h1: 2700, seqVer: 0, shotVer: 0, layers: { shots: true, passes: true, heat: false }, sel: null, hover: null, dirty: false, riverW: 900 };
+const S = { H: null, EV: [], TL: [], MIN: [], CUES: [], MO: [], clock: 0, idx: 0, playing: false, speed: 30, shots: [], seq: [], ball: null, ballTeam: null, ballPlayer: null, lastKey: null, cueIdx: null, inject: false, endClock: 5700, lastTs: 0, teamColour: {}, h1: 2700, seqVer: 0, shotVer: 0, layers: { shots: true, passes: true, heat: false }, sel: null, hover: null, dirty: false, riverW: 900 };
 
 // ---------- helpers
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -690,13 +690,13 @@ async function loadCues() {
   S.CUES = await (await fetch(`/matches/${id}/cues?${q}`)).json();
   $('cues').innerHTML = S.CUES.map((c, i) => { const n = c.verifier.rejected_drafts.length; return `<div class="c" data-i="${i}" tabindex="0"><span class="m num">${label(c.t_in_s)}</span><span>${esc(c.headline)}</span><span class="ok ${c.verifier.passed ? '' : 'bad'}">${c.verifier.passed ? 'verified' : 'rejected'}${n ? `, ${n} draft${n > 1 ? 's' : ''} blocked` : ''}</span></div>`; }).join('');
   document.querySelectorAll('#cues .c').forEach(el => { const go = () => seek(S.CUES[+el.dataset.i].t_in_s); el.onclick = go; el.onkeydown = e => { if (e.key === 'Enter') go(); }; });
-  S.cueIdx = -1; renderCue();
+  S.cueIdx = null; renderCue();
 }
 
 // ---------- playback
 function seek(t) {
   stop();
-  S.clock = clamp(t, 0, S.endClock); S.idx = 0; S.shots = []; S.seq = []; S.ball = null; S.ballTeam = null; S.ballPlayer = null; S.lastKey = null; S.cueIdx = -1; S.shotVer++; S.seqVer++; S.sel = null;
+  S.clock = clamp(t, 0, S.endClock); S.idx = 0; S.shots = []; S.seq = []; S.ball = null; S.ballTeam = null; S.ballPlayer = null; S.lastKey = null; S.cueIdx = null; S.shotVer++; S.seqVer++; S.sel = null;
   $('feed').innerHTML = ''; clearWhatIf();
   while (S.idx < S.EV.length && S.EV[S.idx].clock_s <= S.clock) apply(S.idx++);
   renderAll();
