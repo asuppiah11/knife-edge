@@ -635,7 +635,7 @@ function update3D(dt) {
     root.userData.fig.scale.setScalar(2.5 * sc); root.userData.pillar.scale.x = root.userData.pillar.scale.z = sc;
     root.userData.pillar.material.emissiveIntensity = on ? .5 : (goal ? .3 : .08);
   }
-  if (V.fly) { const f = V.fly, k = ease(Math.min(1, (performance.now() - f.t0) / f.dur)); V.camera.position.lerpVectors(f.p0, f.p1, k); V.controls.target.lerpVectors(f.c0, f.c1, k); if (k >= 1) { V.fly = null; V.controls.enabled = true; } }
+  if (V.fly) { const f = V.fly, k = f.k != null ? f.k : ease(Math.min(1, (performance.now() - f.t0) / f.dur)); V.camera.position.lerpVectors(f.p0, f.p1, k); V.controls.target.lerpVectors(f.c0, f.c1, k); if (k >= 1) { V.fly = null; V.controls.enabled = true; } }
   V.controls.update(); V.renderer.render(V.scene, V.camera);
 }
 const CAMS = { broadcast: [[0, 72, 108], [0, 0, 8]], overhead: [[0, 112, .01], [0, 0, 0]], homeend: [[122, 44, 0], [14, 0, 0]], awayend: [[-122, 44, 0], [-14, 0, 0]] };
@@ -730,7 +730,7 @@ function feedRow(ev, tl) {
   $('feed').prepend(row);
 }
 function frame(ts) {
-  const dt = Math.min(.1, (ts - (S.lastTs || ts)) / 1000); S.lastTs = ts;
+  const dt = S.fixedDt ?? Math.min(.1, (ts - (S.lastTs || ts)) / 1000); S.lastTs = ts;
   if (S.playing) {
     S.clock = Math.min(S.endClock, S.clock + dt * S.speed);
     let changed = false;
@@ -743,6 +743,15 @@ function frame(ts) {
   if (V) { sync3D(); update3D(dt); } else if (S.H && (S.playing || S.dirty)) { render2D(); S.dirty = false; }
   requestAnimationFrame(frame);
 }
+function step(t) {
+  if (t < S.clock) { seek(t); return; }
+  S.clock = Math.min(S.endClock, t); let changed = false;
+  while (S.idx < S.EV.length && S.EV[S.idx].clock_s <= S.clock) { apply(S.idx++); changed = true; }
+  renderTransport(); renderPlayhead(); renderMomentsState(); renderSparkReveal();
+  if (changed) { renderScorebug(); renderGreeks(); renderPressure(); }
+  renderCue();
+}
+function playingUI(on) { $('play-t').textContent = on ? 'Pause' : 'Play'; $('play-ic').innerHTML = on ? '<path d="M1 1h3.5v10H1zM7.5 1H11v10H7.5z"/>' : '<path d="M2 1l9 5-9 5z"/>'; }
 function play() { if (S.clock >= S.endClock) seek(0); S.playing = true; $('play-t').textContent = 'Pause'; $('play-ic').innerHTML = '<path d="M1 1h3.5v10H1zM7.5 1H11v10H7.5z"/>'; }
 function stop() { S.playing = false; $('play-t').textContent = 'Play'; $('play-ic').innerHTML = '<path d="M2 1l9 5-9 5z"/>'; }
 function renderAll() { renderTransport(); renderPlayhead(); renderScorebug(); renderGreeks(); renderPressure(); renderCue(); renderMomentsState(); renderSparkReveal(); S.dirty = true; }
@@ -965,7 +974,7 @@ document.addEventListener('keydown', e => { if (['INPUT', 'SELECT', 'TEXTAREA'].
   if (e.key === ' ') { e.preventDefault(); $('play').click(); } if (e.key === 'ArrowRight') seek(S.clock + (e.shiftKey ? 300 : 60)); if (e.key === 'ArrowLeft') seek(S.clock - (e.shiftKey ? 300 : 60));
   const cam = { 1: 'broadcast', 2: 'overhead', 3: 'homeend', 4: 'awayend' }[e.key]; if (cam) flyTo(cam); });
 
-await init3D(); window.KE = { S, get V() { return V; } };
+await init3D(); window.KE = { S, get V() { return V; }, seek, step, flyTo, playingUI, why, select, loadCues, label };
 requestAnimationFrame(frame);
 loadMatches();
 </script>
